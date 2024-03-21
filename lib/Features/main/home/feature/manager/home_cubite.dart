@@ -23,7 +23,7 @@ class HomeViewCubit extends Cubit<HomeViewState> {
     'متبرع',
     'محتاج تبرع',
     'تبرع سريع',
-    'متطوع',
+    'فرص التطوع',
     'محفظه',
 
   ];
