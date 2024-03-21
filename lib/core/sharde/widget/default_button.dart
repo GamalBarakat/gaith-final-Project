@@ -12,7 +12,7 @@ class DefaultButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
   decoration: BoxDecoration(
-    color:  Colors.white,
+    color:  Colors.orange,
     borderRadius: BorderRadius.circular(15.0),
   ),
   width: double.infinity,

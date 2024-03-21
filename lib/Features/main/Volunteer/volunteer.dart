@@ -4,6 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gaith/core/sharde/app_assets.dart';
 import 'package:gaith/core/sharde/widget/styles.dart';
 
+import '../../../core/sharde/widget/default_button.dart';
+
 class VolunteerPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -56,6 +58,8 @@ class CardViewVolunter extends StatelessWidget {
             SizedBox(height: 5.h,),
             Text('غيث ',style: Styles.textStyleTitleH4),SizedBox(height: 5.h,),
             Text('حمله توزيع افطار رمضان ',style: Styles.textStyleTitleH4),
+            DefaultButton(function: (){},text: '',)
+
           ],
         ),
       ),
