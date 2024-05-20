@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../core/sharde/widget/default_button.dart';
+import '../../../core/sharde/widget/navigation.dart';
 import '../../../core/sharde/widget/text_forn_field.dart';
 class VolunteerNowPage extends StatelessWidget {
   var nameController = TextEditingController();
@@ -14,8 +15,10 @@ class VolunteerNowPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return
       Scaffold(
+        backgroundColor:Color(0xffF4F6FE),
         appBar: AppBar(
           backgroundColor: Colors.white,
+          leading: IconButton(onPressed: (){navigapop(context);}, icon: Icon(Icons.arrow_back_ios)),
           title:Text('متطوع',style:
           TextStyle(
             color: Colors.black,
@@ -25,7 +28,10 @@ class VolunteerNowPage extends StatelessWidget {
             fontFamily: 'Cairo',
 
 
-          ),),
+          ),
+
+
+          ),
 
 
 

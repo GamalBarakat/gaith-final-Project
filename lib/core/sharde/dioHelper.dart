@@ -9,26 +9,32 @@ class DioHelper{
   static late Dio dio;
   static init()
   {
-    dio=Dio(BaseOptions(baseUrl:'https://student.valuxapps.com/api/',
+    dio=Dio(BaseOptions(baseUrl:'http://test.tmwenatapp.com/api/',
     receiveDataWhenStatusError: true,
+
 
     ));
   }
 
-  static Future<Response>getData({required String url,String? token,Map<String,dynamic>? query})async
+  static Future<Response>getData({required String url,Map<String,dynamic>? query})async
   {
     dio.options.headers={
-      'Content-Type':'application/json',
-      'lang':'ar',
-       'Authorization':token
-
+      'Accept': 'application/json',
+      'Accept-Language': 'ar',
+      'Authorization': 'Bearer 1|hjQFoXjf67YDlpoXwu8WW5lG1CIk6IqF7s1KNSnB'
     };
    return await dio.get(url,queryParameters: query);
   }
 
   static Future<Response>postData({required String url, Map<String,dynamic>? data, String?token })async
   {
+    dio.options.headers={
+      'Accept': 'application/json',
+      'Accept-Language': 'ar',
+      'Authorization':'Bearer 1|hjQFoXjf67YDlpoXwu8WW5lG1CIk6IqF7s1KNSnB'
 
+
+    };
     return   dio.post(url,data: data);
   }
 

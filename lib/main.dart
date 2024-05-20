@@ -2,22 +2,46 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import 'Features/Auth/login/screens/login_screen.dart';
 import 'Features/main/layoutScreen.dart';
+import 'Features/main/splash_screen.dart';
 import 'core/sharde/blocObserver.dart';
 import 'core/sharde/chacheHelper.dart';
 import 'core/sharde/dioHelper.dart';
+import 'core/sharde/widget/consts.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = MyBlocObserver();
+  late Widget widget;
   DioHelper.init();
   await CacheHelper.init();
-  runApp(const MyApp());
+  uId= CacheHelper.getData(key: 'uId');
+
+  Onbording2=CacheHelper.getData(key: 'onBording');
+  if( Onbording2 !=null )
+  {
+    if(uId != null)
+    {
+
+      widget=LayoutScreen();
+    }
+    else{
+
+      widget=const LoginScreen();
+    }
+  }
+  else
+  {
+    widget=SplashScreen();
+  }
+  runApp( MyApp(StartWidget: widget,));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  var StartWidget;
+
+ MyApp({super.key, required this.StartWidget});
 
 
   @override
@@ -34,6 +58,7 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
 
       ],
       supportedLocales: const [
@@ -46,7 +71,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home:LayoutScreen(),
+      home: StartWidget,
     ));
   }
 }

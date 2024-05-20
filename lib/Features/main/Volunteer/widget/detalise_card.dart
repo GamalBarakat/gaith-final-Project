@@ -4,26 +4,48 @@ import 'package:gaith/core/sharde/widget/navigation.dart';
 
 import '../../../../core/sharde/widget/default_button.dart';
 import '../../../../core/sharde/widget/styles.dart';
+import '../model/volunteer_model.dart';
 import '../volunteer_now _page.dart';
 class DetaliseCard extends StatelessWidget {
-  const DetaliseCard({super.key});
+  Volunteers volunteerModel;
+  DetaliseCard({super.key,required this.volunteerModel});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.only(bottom: 5,left: 5,right: 5),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
 
           SizedBox(height: 5.h,),
-          Text('غيث ',style: Styles.textStyleTitleH4),SizedBox(height: 5.h,),
-          Text('حمله توزيع افطار رمضان ',style: Styles.textStyleTitleH4),
-          DefaultButton(function: (){
-            navigato(context, VolunteerNowPage());
+          Text('${volunteerModel.name}', style: TextStyle(
+            overflow: TextOverflow.ellipsis,
+            fontSize: 16.sp,
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'Tajawal',
+          ),
+    ),
+          Text('${volunteerModel.dec}',
+            maxLines:2,style:TextStyle(
+
+            overflow: TextOverflow.ellipsis,
+            fontSize: 14.sp,
+            color: Color(0xff555555),
+            fontWeight: FontWeight.w400,
+            fontFamily: 'Tajawal',
+          ),
+    ),
+
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: DefaultButton(function: (){
+              navigato(context, VolunteerNowPage());
 
 
-          },text: 'تطوع الان',)
+            },text: 'تطوع الان',),
+          )
         ],
       ),
     );

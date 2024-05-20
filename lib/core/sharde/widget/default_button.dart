@@ -15,26 +15,26 @@ class DefaultButton extends StatelessWidget {
     return Container(
   decoration: BoxDecoration(
     color:  AppColors.buttonColor,
-    borderRadius: BorderRadius.circular(15.0),
+    borderRadius: BorderRadius.circular(8.0),
   ),
   width: double.infinity,
-  height: 45.h,
+  height: 40.h,
 
   child: MaterialButton(
     onPressed:(){function();},
     child: Text(
       text,
-      style:
-      TextStyle(
-        color: Colors.white,
 
-        fontWeight: FontWeight.bold,
-        fontSize: 17.sp,
-        fontFamily: 'Cairo',
+      style: TextStyle(
+      fontSize: 16.sp,
+      fontWeight: FontWeight.w700,
+      color: Colors.white,
+      fontFamily: 'Tajawal',
+    ),
 
 
       ),
-    ),
+
   ),
 );
   }

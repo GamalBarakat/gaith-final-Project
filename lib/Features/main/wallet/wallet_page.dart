@@ -13,11 +13,11 @@ class WalletPage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Center(
-          child: Image.asset(
-              width: 120.w,
-              AppAssets.volunter),
-        ),
+        // Center(
+        //   child: Image.asset(
+        //       width: 120.w,
+        //       AppAssets.volunter),
+        // ),
         Center(
           child: Text(
             'تمت عمليه الدفع بنجاح',

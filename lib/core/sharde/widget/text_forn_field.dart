@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:gaith/core/sharde/app_colors.dart';
-import 'package:gaith/core/sharde/widget/styles.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 
 class CustomTextFormField extends StatelessWidget {
   final TextEditingController? controller;
   final TextInputType? textInputType;
   final String? hintText;
   final Widget? prefix;
-
+  final Widget? subfix;
+  final dynamic? obscureText;
   final FormFieldValidator<String>? validator;
   const CustomTextFormField({super.key,
-
   this.controller,
   this.textInputType = TextInputType.text,
   this.hintText,
   this.prefix,
-
   this.validator,
+    this.subfix,
+    this.obscureText
   }) ;
 
   @override
@@ -24,34 +25,46 @@ class CustomTextFormField extends StatelessWidget {
     return
       Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Container(
+        child: TextFormField(
+          controller: controller,
+          decoration:  InputDecoration(
+            suffixIcon:subfix,
 
-          decoration: BoxDecoration( color: Color(0xffE0F0FB),
-            borderRadius: BorderRadius.circular(10)
-          ),
-          height: 45,
+            enabledBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.black,width: 1.2),
+            ),
+            hintText: hintText,
+            hintStyle: const TextStyle(
 
-          child:
-          TextFormField(
-            controller: controller,
+            color: Color(0xff555555),
 
-            decoration:  InputDecoration(
-              hintText: hintText,
-              hintStyle: Styles.textStyleTitleH4,
+            fontFamily: 'Rajawali'),
 
-              border: InputBorder.none,
+            border: const OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.black, width: 50),
+            ),
+            errorBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.red),
+            ),
+
+            focusedErrorBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.red, width: 2.0),
+            ),
+            focusedBorder: const OutlineInputBorder(
+
+              borderSide: BorderSide(color: Colors.green),
+            ),
+
+            contentPadding: const EdgeInsets.symmetric(vertical: 4.0,horizontal: 4.0),
 
 
-              contentPadding: EdgeInsets.symmetric(vertical: 8.0,horizontal: 4),
+            prefixIcon: prefix,
 
+          ), // textInputAction: textInputAction,
+          keyboardType: textInputType,
 
-              prefixIcon: prefix,
-
-            ), // textInputAction: textInputAction,
-            keyboardType: textInputType,
-
-            validator: validator,
-          ),
+          validator: validator,
+          obscureText: obscureText == null ? false : obscureText,
         ),
       );
   }

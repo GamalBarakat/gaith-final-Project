@@ -23,6 +23,10 @@ class changLocaizationStateSuccess extends  HomeViewState{}
 
 
 
+class PhotoDonationLoadingState extends HomeViewState{}
+class PhotoDonationSuccessState extends HomeViewState{}
+class PhotoDonationErrorState extends HomeViewState{}
+
 
 
 

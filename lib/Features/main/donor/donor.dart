@@ -1,9 +1,313 @@
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gaith/Features/main/donor/widget/other_donations_list_view.dart';
+import 'package:gaith/core/sharde/widget/navigation.dart';
+import 'package:marquee/marquee.dart';
+import 'package:shimmer/shimmer.dart';
+
+import '../../../core/sharde/app_assets.dart';
+import '../../../core/sharde/widget/default_button.dart';
+import '../../Auth/login/screens/login_screen.dart';
+import '../Volunteer/volunteer_now _page.dart';
+import '../Volunteer/widget/detalise_card.dart';
+import '../home/feature/manager/home_cubite.dart';
+import '../home/feature/manager/home_view__state.dart';
+import 'cubit/home_view_cubit.dart';
+import 'cubit/home_view_state.dart';
+import 'donation_status_details.dart';
 class DonorPage extends StatelessWidget {
+  const DonorPage({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(child: Text('DonorPage')),
+    return
+
+      BlocProvider(
+        create: (context) => DonorViewCubit()..getHomeData(),
+
+      child: BlocConsumer<DonorViewCubit, DonorViewState>(
+        listener: (context,state)
+        {},
+        builder:(context,state)
+          {
+
+            return Container(
+              width: MediaQuery.of(context).size.width,
+
+
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                //   SizedBox(
+                //   width: 200.0,
+                //   height: 100.0,
+                //   child: Shimmer.fromColors(
+                //     baseColor: Colors.grey,
+                //     highlightColor: Colors.white,
+                //     child:
+                //
+                //   ),
+                // ),
+                    Stack(
+                      clipBehavior: Clip.none,
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 220.h,
+                          decoration: const BoxDecoration(
+                            image: DecorationImage(
+                              fit: BoxFit.fill,
+                              image: AssetImage(AppAssets.banar1,),
+
+
+                            ),
+                            borderRadius: BorderRadius.only(
+                              bottomRight: Radius.circular(10),
+                              bottomLeft: Radius.circular(10),
+                            ),
+                          ),
+
+                        ),
+
+                        Positioned(bottom:-60,left: 1,right: 1,child: OtherDonationsListView()),
+                      ],
+
+                    ),
+                   60.verticalSpace,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 5),
+                      child: Container(
+                        padding: EdgeInsets.symmetric(vertical: 5),
+                        height: 35.h,
+                        decoration: BoxDecoration(
+                          color: Colors.indigo.shade300,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child:
+                        Marquee(
+
+                          text:' مع ابليكشن غيث تبرعك سوف يصل الى كل محتاج تبرع الان ',
+
+                          style: TextStyle(fontSize: 12.0.sp,fontFamily: 'Ottoman', color: Colors.white,fontWeight: FontWeight.bold),
+
+
+                          scrollAxis: Axis.horizontal,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          blankSpace: 20.0,
+                          velocity: 100.0,
+                          pauseAfterRound: Duration(milliseconds: 500),
+                          startPadding: 10.0,
+                          accelerationDuration: Duration(milliseconds: 500),
+                          accelerationCurve: Curves.linear,
+                          decelerationDuration: Duration(milliseconds: 500),
+                          decelerationCurve: Curves.easeOut,
+                        ),
+                      ),
+                    ),
+10.verticalSpace,
+                    (BlocProvider.of<DonorViewCubit>(context).donorModel==null)?
+                        Container():
+
+                SizedBox(
+                  height: 150.0.h,
+
+                  width: MediaQuery.of(context).size.width,
+                  child:
+                    CarouselSlider.builder(
+                      itemCount: BlocProvider.of<DonorViewCubit>(context).donorModel!.advertisements!.length,
+                      itemBuilder: (context, index, realIndex) {
+                        return
+                          (BlocProvider.of<DonorViewCubit>(context).donorModel!.advertisements!.length==0)?
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width,
+                            height: 100.0.h,
+                            child:
+                            Shimmer.fromColors(
+                                baseColor: Colors.grey,
+                                highlightColor: Colors.white,
+                                child:Container( width: MediaQuery.of(context).size.width,decoration: BoxDecoration(
+                                  color: Colors.grey.shade50,
+                                  borderRadius: BorderRadius.circular(10),
+
+                                ),)
+
+                            ),
+                          ):
+                          ClipRRect
+                            (
+                          borderRadius: BorderRadius.circular(10),
+                          child:
+                            (BlocProvider.of<DonorViewCubit>(context).donorModel!.advertisements![index].img==null)?
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width,
+                              height: 100.0.h,
+                              child: Shimmer.fromColors(
+                                  baseColor: Colors.grey,
+                                  highlightColor: Colors.white,
+                                  child:Container( width: MediaQuery.of(context).size.width,color: Colors.grey.shade50,)
+
+                              ),
+                            )
+                                :Image.network(
+
+
+                            width: MediaQuery.of(context).size.width,
+                            '${BlocProvider.of<DonorViewCubit>(context).donorModel!.advertisements![index].img}',
+                            fit: BoxFit.fill,
+                          ),
+                        );
+                      },
+                      options: CarouselOptions(
+                        autoPlay: true,
+                        enlargeCenterPage: true,
+                        aspectRatio: MediaQuery.of(context).size.width / MediaQuery.of(context).size.height,
+                        onPageChanged: (index, reason) {
+                          BlocProvider.of<DonorViewCubit>(context).onPageChanged(index: index);
+                        },
+                      ),
+                    ),
+
+                ),
+                    5.verticalSpace,
+                    Container(
+                      padding: EdgeInsets.all(10),
+                      child: Text(
+                        ' ( الَّذِينَ يُنفِقُونَ فِي السَّرَّاءِ وَالضَّرَّاءِ وَالْكَاظِمِينَ الْغَيْظَ وَالْعَافِينَ عَنِ النَّاسِ ۗ وَاللَّهُ يُحِبُّ الْمُحْسِنِينَ )',
+                        style: TextStyle(fontSize: 18.0.sp,fontFamily: 'Ottoman', color: Colors.black,fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+
+                      ),
+                    ),
+
+5.verticalSpace,
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text('الحالات الانسانيه',style:  TextStyle(
+                        color: Colors.black,
+
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18.sp,
+                        fontFamily: 'Tajawal',
+
+
+                      ),),
+                    ),
+
+
+                    (BlocProvider.of<DonorViewCubit>(context).donorModel ==null)?
+                    Container(
+                      padding: EdgeInsets.all(10),
+                      height: 320.h,
+                      child: Shimmer.fromColors(
+                          baseColor: Colors.grey,
+                          highlightColor: Colors.white,
+                          child:Container( width: MediaQuery.of(context).size.width,decoration: BoxDecoration(
+                            color: Colors.grey.shade50,
+                            borderRadius: BorderRadius.circular(10),
+                                            
+                          ),)
+                                            
+                      ),
+                    ):
+
+                      SizedBox(
+                        height: 320.h,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder:(context,index){
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 4),
+                              child: Container(
+                                width: MediaQuery.of(context).size.width*.8,
+                                decoration: BoxDecoration( color: Colors.white,borderRadius: BorderRadius.circular(10.sp),
+                                  border: Border.all(
+                                    color: Colors.grey,
+                                    width: 0.5,
+                                  ),),
+
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(height:MediaQuery.of(context).size.width*.4,child: ClipRRect(borderRadius: BorderRadius.only(topLeft:Radius.circular(10.sp),
+                                      topRight:Radius.circular(10.sp),
+                                    ),child:(BlocProvider.of<DonorViewCubit>(context).donorModel!.donations![index].img==null)?
+                              CircularProgressIndicator(
+                                value: 0.7,
+                              ):
+                                    InkWell(onTap: (){print(BlocProvider.of<DonorViewCubit>(context).donorModel!.donations![index].img);},child: Image.network('${BlocProvider.of<DonorViewCubit>(context).donorModel!.donations![index].img}',width: double.infinity,fit: BoxFit.cover,)))),
+
+                                    Expanded(
+                                      child: Container(
+                                        padding: const EdgeInsets.symmetric(horizontal: 4),
+                                                                        
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Text(
+                                              '${BlocProvider.of<DonorViewCubit>(context).donorModel!.donations![index].name}',
+                                              style: TextStyle(
+                                                fontSize: 14.sp,
+                                                fontWeight: FontWeight.w400,
+                                                fontFamily: 'Tajawal',
+                                              ),
+                                            ),
+                                            Text(
+                                              maxLines: 2,
+                                      
+                                              '${BlocProvider.of<DonorViewCubit>(context).donorModel!.donations![index].dec}',
+                                              style: TextStyle(
+                                                overflow: TextOverflow.ellipsis,
+                                                fontSize: 14.sp,
+                                                color: Color(0xff555555),
+                                                fontWeight: FontWeight.w400,
+                                                fontFamily: 'Tajawal',
+                                              ),
+                                            ),
+                                            DefaultButton(function: (){
+                                              final donation = BlocProvider.of<DonorViewCubit>(context).donorModel!.donations![index];
+                                              navigato(context, DonationStatusDetails(id: donation.id ?? 1));
+                                            },text: 'تبرع',),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+
+
+                                  ],
+                                ),
+                              ),
+                            );
+                          }
+                          , itemCount: BlocProvider.of<DonorViewCubit>(context).donorModel!.donations!.length,),
+                      ),
+
+                    Container(
+                      padding: EdgeInsets.all(10),
+                      child: Text(
+                        ' ( الَّذِينَ يُنفِقُونَ فِي السَّرَّاءِ وَالضَّرَّاءِ وَالْكَاظِمِينَ الْغَيْظَ وَالْعَافِينَ عَنِ النَّاسِ ۗ وَاللَّهُ يُحِبُّ الْمُحْسِنِينَ )',
+                        style: TextStyle(fontSize: 18.0.sp,fontFamily: 'Ottoman', color: Colors.black,fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+
+                      ),
+                    ),
+
+                  ],
+                ),
+              )
+            );
+          }
+
+
+      ),
     );
   }
 }
+
+
+
