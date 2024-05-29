@@ -39,7 +39,7 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  var StartWidget;
+ dynamic StartWidget;
 
  MyApp({super.key, required this.StartWidget});
 

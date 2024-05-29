@@ -10,6 +10,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../drawer/cart/cart_screen.dart';
 import '../../../Donate Quickly/favorite_page.dart';
 import '../../../Donatio Need/views/donation_need.dart';
 import '../../../Volunteer/volunteer.dart';
@@ -38,7 +39,7 @@ class HomeViewCubit extends Cubit<HomeViewState> {
   List<Widget>Scrreen = [
     DonorPage(),
     DonationNeedPage(),
-    DonateQuicklyPage(),
+    CartScreen(),
     VolunteerPage(),
     WalletPage(),
   ];

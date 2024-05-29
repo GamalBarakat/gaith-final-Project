@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gaith/core/sharde/widget/navigation.dart';
-
 import '../../../../core/sharde/widget/default_button.dart';
-import '../../../../core/sharde/widget/styles.dart';
 import '../model/volunteer_model.dart';
 import '../volunteer_now _page.dart';
+
 class DetaliseCard extends StatelessWidget {
   Volunteers volunteerModel;
   DetaliseCard({super.key,required this.volunteerModel});

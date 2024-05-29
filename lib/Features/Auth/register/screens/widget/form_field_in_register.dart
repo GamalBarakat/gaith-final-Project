@@ -4,12 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import '../../../../../core/sharde/chacheHelper.dart';
-import '../../../../../core/sharde/widget/consts.dart';
+
 import '../../../../../core/sharde/widget/default_button.dart';
 import '../../../../../core/sharde/widget/navigation.dart';
 import '../../../../../core/sharde/widget/text_forn_field.dart';
-import '../../../../main/layoutScreen.dart';
+
 import '../../../login/screens/login_screen.dart';
 import '../../Cubit/register_view_cubit.dart';
 import '../../Cubit/register_view_state.dart';

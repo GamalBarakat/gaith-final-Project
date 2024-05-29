@@ -13,7 +13,7 @@ class DonationNeedViewCubit extends Cubit<DonationNeedViewState>{
   DonationNeedViewCubit():super(InitializeDonationNeedViewState());
 
 
-  Future<void> requestADonationForMe ({required String categoryId,
+  void requestADonationForMe ({required String categoryId,
     required String description ,
     required String price , required String details  })  async {
 
@@ -23,10 +23,10 @@ emit(RequestADonationForMeStateLoading());
 
     DioHelper.postData(url:'need_donation_me',data:{
 
+
       'catigory_id': categoryId,
       'dec': description,
       'price': price,
-      'img': await MultipartFile.fromFile(donationPhoto!.path),
       'des': details,
 
     } )

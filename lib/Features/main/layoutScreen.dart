@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gaith/core/sharde/app_assets.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 import 'home/feature/manager/home_cubite.dart';
@@ -21,6 +22,72 @@ class LayoutScreen extends StatelessWidget {
         builder: (context, state) {
           return
             Scaffold(
+
+              drawer:
+              Drawer(
+                backgroundColor: Colors.white,
+                child: ListView(
+                  padding: EdgeInsets.zero,
+                  children: [
+                    DrawerHeader(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                      ),
+                      child: Row(
+
+                        children: [
+                          CircleAvatar(
+                            radius: 40,
+                            backgroundImage: AssetImage(AppAssets.food),
+                          ),
+                         10.horizontalSpace,
+
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Gamal Barakat',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                ),
+                              ),
+                              Text(
+                                '012222',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ],
+                          ),
+                          // رقم الهاتف
+
+                        ],
+                      ),
+                    ),
+                    // خيارات القائمة
+                    ListTile(
+                      leading: Icon(Icons.home),
+                      title: Text('الصفحة الرئيسية'),
+                      onTap: () {
+                        // اختر الإجراء الذي تريده لهذا الخيار
+                        Navigator.pop(context);
+                      },
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.settings),
+                      title: Text('الإعدادات'),
+                      onTap: () {
+                        // اختر الإجراء الذي تريده لهذا الخيار
+                        Navigator.pop(context);
+                      },
+                    ),
+                    // يمكنك إضافة المزيد من الخيارات هنا
+                  ],
+                ),
+              ),
 
 
 
@@ -44,21 +111,21 @@ class LayoutScreen extends StatelessWidget {
 
                     SalomonBottomBarItem(
                       icon: Icon(Icons.favorite_border),
-                      title: Text("Likes"),
+                      title: Text("المحتاجين"),
                       selectedColor: Colors.pink,
                     ),
 
-                    /// Search
+
                     SalomonBottomBarItem(
                       icon: Icon(Icons.search),
-                      title: Text("Search"),
+                      title: Text("التطوع"),
                       selectedColor: Colors.orange,
                     ),
 
-                    /// Profile
+
                     SalomonBottomBarItem(
                       icon: Icon(Icons.person),
-                      title: Text("Profile"),
+                      title: Text("التطوع"),
                       selectedColor: Colors.teal,
                     ),
                   ],

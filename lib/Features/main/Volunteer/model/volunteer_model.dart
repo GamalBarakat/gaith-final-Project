@@ -1,5 +1,5 @@
 class VolunteerModel {
-  dynamic? status;
+  dynamic status;
   String? message;
   List<Volunteers>? volunteers;
 

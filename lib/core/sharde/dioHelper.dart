@@ -2,7 +2,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
+
 
 class DioHelper{
 
@@ -11,30 +11,36 @@ class DioHelper{
   {
     dio=Dio(BaseOptions(baseUrl:'http://test.tmwenatapp.com/api/',
     receiveDataWhenStatusError: true,
+      headers: {
+        'Accept': 'application/json',
+        'Accept-Language': 'ar',
+        'Authorization': 'Bearer 1|hjQFoXjf67YDlpoXwu8WW5lG1CIk6IqF7s1KNSnB'
+      }
 
 
     ));
+
   }
 
   static Future<Response>getData({required String url,Map<String,dynamic>? query})async
   {
-    dio.options.headers={
-      'Accept': 'application/json',
-      'Accept-Language': 'ar',
-      'Authorization': 'Bearer 1|hjQFoXjf67YDlpoXwu8WW5lG1CIk6IqF7s1KNSnB'
-    };
+    // dio.options.headers={
+    //   'Accept': 'application/json',
+    //   'Accept-Language': 'ar',
+    //   'Authorization': 'Bearer 1|hjQFoXjf67YDlpoXwu8WW5lG1CIk6IqF7s1KNSnB'
+    // };
    return await dio.get(url,queryParameters: query);
   }
 
   static Future<Response>postData({required String url, Map<String,dynamic>? data, String?token })async
   {
-    dio.options.headers={
-      'Accept': 'application/json',
-      'Accept-Language': 'ar',
-      'Authorization':'Bearer 1|hjQFoXjf67YDlpoXwu8WW5lG1CIk6IqF7s1KNSnB'
-
-
-    };
+    // dio.options.headers={
+    //   'Accept': 'application/json',
+    //   'Accept-Language': 'ar',
+    //   'Authorization':'Bearer 1|hjQFoXjf67YDlpoXwu8WW5lG1CIk6IqF7s1KNSnB'
+    //
+    //
+    // };
     return   dio.post(url,data: data);
   }
 

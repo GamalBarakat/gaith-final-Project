@@ -10,7 +10,7 @@ import 'package:gaith/Features/Auth/register/Cubit/register_view_state.dart';
 
 import '../../../../core/sharde/dioHelper.dart';
 import '../model/register_model.dart';
-import '../model/register_model.dart';
+
 
 
 class RegisterViewCubit extends Cubit<RegisterViewState>{

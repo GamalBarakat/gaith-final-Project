@@ -9,6 +9,7 @@ import 'package:linear_progress_bar/linear_progress_bar.dart';
 import 'package:wave_linear_progress_indicator/wave_linear_progress_indicator.dart';
 
 import '../../../core/sharde/app_assets.dart';
+import '../../../core/sharde/app_colors.dart';
 import '../../../core/sharde/widget/default_button.dart';
 import '../../../core/sharde/widget/navigation.dart';
 import 'cubit/home_view_cubit.dart';
@@ -45,7 +46,7 @@ class DonationStatusDetails extends StatelessWidget {
                 padding: const EdgeInsets.all(5.0),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: Colors.white
+
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,6 +56,8 @@ class DonationStatusDetails extends StatelessWidget {
                             borderRadius: BorderRadius.only(
                               bottomLeft: Radius.circular(15.sp),
                               bottomRight: Radius.circular(15.sp),
+                              topLeft:  Radius.circular(15.sp),
+                              topRight: Radius.circular(15.sp),
                             ),
                             color: Colors.white),
                         width: MediaQuery.of(context).size.width,
@@ -91,110 +94,150 @@ class DonationStatusDetails extends StatelessWidget {
                         height: 200.h,
                       ),
                     ),
-        
-                    20.verticalSpace,
-        
-        
-                    Text( '${BlocProvider.of<DonorViewCubit>(context).detailsModel!.donation!.name}',
-                      style: TextStyle(
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w700,
-        
-                        fontFamily: 'Tajawal',
-                      ),
-        
-                    ),
-                    20.verticalSpace,
-                    Text(
-                      '${BlocProvider.of<DonorViewCubit>(context).detailsModel!.donation!.des}'
-                      ,
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xff555555),
-        
-                        fontFamily: 'Tajawal',
-                      ),
-                    ),
-                    5.verticalSpace,
-        
-                    Row(
-                      children: [
-                        Icon(Icons.phone),
-                        5.horizontalSpace,
-                        Text('${BlocProvider.of<DonorViewCubit>(context).detailsModel!.donation!.phone}')
-                      ],
-                    ),
-                      5.verticalSpace,
-                    Row(
-                      children: [
-                        Image.asset(AppAssets.location_icon,width: 20.w,),
-                        5.horizontalSpace,
-                        Text('${BlocProvider.of<DonorViewCubit>(context).detailsModel!.donation!.address}')
-                      ],
-                    ),
-        
-                      10.verticalSpace,
-        
-                    Stack(
-                      alignment: Alignment.topCenter,
-                      children: [
-                        Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            ClipRRect(
-                              borderRadius:BorderRadius.circular(5),
-                              child: LinearProgressBar(
-                                maxSteps: int.parse( '${BlocProvider.of<DonorViewCubit>(context).detailsModel!.donation!.price}'),
-                                progressType: LinearProgressBar.progressTypeLinear,
-                                currentStep:int.parse( '${BlocProvider.of<DonorViewCubit>(context).detailsModel!.donation!.pay}'),
-                                progressColor: Colors.green,
-                                backgroundColor: Colors.black,
 
-                                minHeight: 15.h,
+                    10.verticalSpace,
+                    Container(
 
-                              ),
+                      padding: const EdgeInsets.all(5.0),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.white,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+
+                          Text( '${BlocProvider.of<DonorViewCubit>(context).detailsModel!.donation!.name}',
+                            style: TextStyle(
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w700,
+
+                              fontFamily: 'Tajawal',
                             ),
-                            Container(width: 50.w,height:18.h,decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color: Colors.grey),child: Center(child: Text('${(100/1000)*100}%',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),)))
-                          ],
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 20),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                          ),
+                          20.verticalSpace,
+                          Text(
+                            '${BlocProvider.of<DonorViewCubit>(context).detailsModel!.donation!.des}'
+                            ,
+                            style: TextStyle(
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w400,
+                              color: Color(0xff555555),
+
+                              fontFamily: 'Tajawal',
+                            ),
+                          ),
+                          5.verticalSpace,
+
+                          Row(
                             children: [
-                              Text('${BlocProvider.of<DonorViewCubit>(context).detailsModel!.donation!.pay}',  style: TextStyle(
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w400,
-                                color: Color(0xff555555),
-        
-                                fontFamily: 'Tajawal',
-                              ),),
-                              Text('${BlocProvider.of<DonorViewCubit>(context).detailsModel!.donation!.price}',  style: TextStyle(
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w400,
-                                color: Color(0xff555555),
-        
-                                fontFamily: 'Tajawal',
-                              ),),
-        
+                              Icon(Icons.phone),
+                              5.horizontalSpace,
+                              Text('${BlocProvider.of<DonorViewCubit>(context).detailsModel!.donation!.phone}')
                             ],
                           ),
+                          5.verticalSpace,
+                          Row(
+                            children: [
+                              Image.asset(AppAssets.location_icon,width: 20.w,),
+                              5.horizontalSpace,
+                              Text('${BlocProvider.of<DonorViewCubit>(context).detailsModel!.donation!.address}')
+                            ],
+                          ),
+
+                          10.verticalSpace,
+
+                          Stack(
+                            alignment: Alignment.topCenter,
+                            children: [
+                              Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  ClipRRect(
+                                    borderRadius:BorderRadius.circular(5),
+                                    child: LinearProgressBar(
+                                      maxSteps: int.parse( '${BlocProvider.of<DonorViewCubit>(context).detailsModel!.donation!.price}'),
+                                      progressType: LinearProgressBar.progressTypeLinear,
+                                      currentStep:int.parse( '${BlocProvider.of<DonorViewCubit>(context).detailsModel!.donation!.pay}'),
+                                      progressColor: Colors.blue,
+                                      backgroundColor: Colors.grey,
+
+                                      minHeight: 15.h,
+
+                                    ),
+                                  ),
+                                  Card(elevation:2,child: Container(width: 50.w,height:18.h,decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color: Colors.grey),child: Center(child: Text('${(100/1000)*100}%',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),))))
+                                ],
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 20),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text('${BlocProvider.of<DonorViewCubit>(context).detailsModel!.donation!.pay}',  style: TextStyle(
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w400,
+                                      color: Color(0xff555555),
+
+                                      fontFamily: 'Tajawal',
+                                    ),),
+                                    Text('${BlocProvider.of<DonorViewCubit>(context).detailsModel!.donation!.price}',  style: TextStyle(
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w400,
+                                      color: Color(0xff555555),
+
+                                      fontFamily: 'Tajawal',
+                                    ),),
+
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+
+
+
+
+                          20.verticalSpace,
+                        ],
+                      ),
+                    )
+
+
+                  ,
+                    Row(
+
+                      children: [
+                        Expanded(
+                          flex: 3,
+                          child: DefaultButton(text: 'مساعده الحاله',function: (){
+                          
+                            },),
+                        ),
+                        5.horizontalSpace,
+                        Expanded(
+                          flex: 1,
+                          child:  Container(
+                            decoration: BoxDecoration(
+                              color:  AppColors.buttonColor,
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            width: double.infinity,
+                            height: 40.h,
+
+                            child: MaterialButton(
+                              onPressed:(){},
+                              child:
+                              Icon(Icons.satellite, color: Colors.white,)
+
+                            ),
+                          )
                         ),
                       ],
                     ),
 
 
-
-
-                    20.verticalSpace,
-                    DefaultButton(text: 'مساعده الحاله',function: (){
-
-
-
-                    },),
-        
-        
                   ],
                 ),
               ),

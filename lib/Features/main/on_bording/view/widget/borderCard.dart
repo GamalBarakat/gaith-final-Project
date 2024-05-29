@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../onBordingScreesn.dart';
+
 
 import '../../model/list_on_bording.dart';
 class  BorderCard extends StatelessWidget {

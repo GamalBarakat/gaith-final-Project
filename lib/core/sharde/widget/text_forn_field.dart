@@ -8,7 +8,7 @@ class CustomTextFormField extends StatelessWidget {
   final String? hintText;
   final Widget? prefix;
   final Widget? subfix;
-  final dynamic? obscureText;
+  final dynamic obscureText;
   final FormFieldValidator<String>? validator;
   const CustomTextFormField({super.key,
   this.controller,

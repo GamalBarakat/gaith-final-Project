@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gaith/Features/Auth/register/screens/widget/form_field_in_register.dart';
 import 'package:gaith/core/sharde/app_assets.dart';
-import 'package:gaith/core/sharde/widget/navigation.dart';
+
 
 
 class RegisterScreen extends StatelessWidget {
