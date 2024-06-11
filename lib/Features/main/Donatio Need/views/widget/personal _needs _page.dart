@@ -124,7 +124,7 @@ class PersonalNeedsPage extends StatelessWidget {
 
 
                           BlocProvider.of<DonationNeedViewCubit>(context).requestADonationForMe(
-
+image:BlocProvider.of<DonationNeedViewCubit>(context).donationPhoto!.path.toString() ,
                             categoryId:'3' ,
                             description:descriptionController.text ,
                             details:descriptionController.text,

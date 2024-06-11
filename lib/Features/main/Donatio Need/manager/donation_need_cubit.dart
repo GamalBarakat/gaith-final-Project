@@ -15,24 +15,27 @@ class DonationNeedViewCubit extends Cubit<DonationNeedViewState>{
 
   void requestADonationForMe ({required String categoryId,
     required String description ,
-    required String price , required String details  })  async {
+    required String price , required String details, required String image })  async {
 
 emit(RequestADonationForMeStateLoading());
 
+FormData formData = FormData.fromMap({
+  'files': [
+    await MultipartFile.fromFile('${image}', filename: 'gggg')
+  ],
+  'catigory_id': categoryId,
+  'dec': description,
+  'price': price,
+  'des': details,
 
 
-    DioHelper.postData(url:'need_donation_me',data:{
+});
 
-
-      'catigory_id': categoryId,
-      'dec': description,
-      'price': price,
-      'des': details,
-
-    } )
+    DioHelper.postData(url:'need_donation_me',data:formData )
 
         .then((value){
-
+print(value.data);
+print(image);
       emit(RequestADonationForMeStateSuccess());
 
 
@@ -78,7 +81,7 @@ print('Error in cubit requestADonationForMe ${error.toString()} ');
   }
 
 
-  void requestADonationToAnotherPerson ({
+  Future<void> requestADonationToAnotherPerson ({
     required String  name,
     required String address,
     required String phone,
@@ -86,23 +89,28 @@ print('Error in cubit requestADonationForMe ${error.toString()} ');
     required String description ,
     required String price ,
     required dynamic  imageUrl,
-    required String details  }){
+    required String details  }) async {
 
     emit(RequestADonationToAnotherPersonStateLoading());
-    DioHelper.postData(url:'need_donation_you',data:{
+    FormData formData = FormData.fromMap({
+      'files': [
+        await MultipartFile.fromFile('${imageUrl}', filename: '')
+      ],
+      'catigory_id': '3',
+      'dec': description,
+      'price': price,
+      'des': description,
       'name':name,
       'address':address,
       'phone':phone,
-      'catigory_id': categoryId,
-      'dec': description,
-      'price': price,
-      'img': imageUrl,
-      'des': details,
+      'img': '/data/user/0/com.example.gaith/cache/f1d454a9-e85e-46d6-ae60-db9ccf254b71/IMG-20210305-WA0005.jpg',
 
-    } )
+    });
+    DioHelper.postData(url:'need_donation_you',data:formData)
 
         .then((value){
-
+print(value.data);
+print(imageUrl);
       emit(RequestADonationToAnotherPersonStateSuccess());
 
 

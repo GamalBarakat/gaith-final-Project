@@ -2,6 +2,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:gaith/core/sharde/widget/consts.dart';
 
 
 class DioHelper{
@@ -14,7 +15,8 @@ class DioHelper{
       headers: {
         'Accept': 'application/json',
         'Accept-Language': 'ar',
-        'Authorization': 'Bearer 1|hjQFoXjf67YDlpoXwu8WW5lG1CIk6IqF7s1KNSnB'
+        // 'Content-Type': 'multipart/form-data',
+
       }
 
 
@@ -24,23 +26,13 @@ class DioHelper{
 
   static Future<Response>getData({required String url,Map<String,dynamic>? query})async
   {
-    // dio.options.headers={
-    //   'Accept': 'application/json',
-    //   'Accept-Language': 'ar',
-    //   'Authorization': 'Bearer 1|hjQFoXjf67YDlpoXwu8WW5lG1CIk6IqF7s1KNSnB'
-    // };
+     dio.options.headers["Authorization"] = "Bearer ${uId}";
    return await dio.get(url,queryParameters: query);
   }
 
-  static Future<Response>postData({required String url, Map<String,dynamic>? data, String?token })async
+  static Future<Response>postData({required String url, dynamic data, String?token })async
   {
-    // dio.options.headers={
-    //   'Accept': 'application/json',
-    //   'Accept-Language': 'ar',
-    //   'Authorization':'Bearer 1|hjQFoXjf67YDlpoXwu8WW5lG1CIk6IqF7s1KNSnB'
-    //
-    //
-    // };
+     dio.options.headers["Authorization"] = "Bearer ${uId}";
     return   dio.post(url,data: data);
   }
 

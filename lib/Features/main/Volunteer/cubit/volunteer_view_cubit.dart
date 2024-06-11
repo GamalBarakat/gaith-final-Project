@@ -23,6 +23,32 @@ class VolunteerViewCubit extends Cubit<VolunteerViewState> {
     });
   }
 
+  void addVolunteer({
+    required String name,required  String age,
+    required String address,required String work,
+    required String ex,required String volunteer_id
+    }) {
+    emit(AddVolunteerViewStateLoading());
+    DioHelper.postData(url: 'add_volunteer',data: {
+      'name': name,
+      'age': age,
+      'address': address,
+      'work': work,
+      'ex': ex,
+      'volunteer_id': volunteer_id
 
+    })
+        .then((value) {
+      print('Successs');
+
+
+      print(value.data);
+      emit(AddVolunteerViewStateSuccess());
+    })
+        .catchError((error) {
+      print('Error     ${error.toString()}');
+      emit(AddVolunteerViewStateError(error.toString()));
+    });
+  }
 
 }

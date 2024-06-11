@@ -3,6 +3,7 @@
 
 
 
+
 import 'dart:io';
 
 
@@ -10,6 +11,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../core/sharde/dioHelper.dart';
+import '../../../../Auth/login/model/user_login_model.dart';
 import '../../../../drawer/cart/cart_screen.dart';
 import '../../../Donate Quickly/favorite_page.dart';
 import '../../../Donatio Need/views/donation_need.dart';
@@ -74,6 +77,27 @@ class HomeViewCubit extends Cubit<HomeViewState> {
       emit(PhotoDonationErrorState());
     }
   }
+
+  UserLoginModel?profileModel;
+  void getProfile(){
+    emit(ProfileLoadingState());
+    DioHelper.getData(url:'get_profile').then((value) {
+
+      profileModel=UserLoginModel.fromJson(value.data);
+      print(value.data);
+      emit(ProfileSuccessState());
+    }).catchError((error)
+    {
+      print('Error In Function Get Profile This Error ${error.toString()}');
+      emit(ProfileErrorState());
+
+    });
+
+  }
+
+
+
+
 
 }
 

@@ -30,3 +30,10 @@ class PhotoDonationErrorState extends HomeViewState{}
 
 
 
+
+
+class ProfileLoadingState extends HomeViewState{}
+class ProfileSuccessState extends HomeViewState{}
+class ProfileErrorState extends HomeViewState{}
+
+

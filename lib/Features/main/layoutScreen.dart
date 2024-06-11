@@ -4,11 +4,14 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gaith/core/sharde/app_assets.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
+import '../../core/sharde/widget/navigation.dart';
+import '../drawer/zakat/zakat_screen.dart';
 import 'home/feature/manager/home_cubite.dart';
 import 'home/feature/manager/home_view__state.dart';
 
@@ -16,7 +19,7 @@ class LayoutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => HomeViewCubit(),
+      create: (context) => HomeViewCubit()..getProfile(),
       child: BlocConsumer<HomeViewCubit, HomeViewState>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -24,50 +27,55 @@ class LayoutScreen extends StatelessWidget {
             Scaffold(
 
               drawer:
-              Drawer(
+              BlocProvider.of<HomeViewCubit>(context).profileModel==null?
+              Container():Drawer(
                 backgroundColor: Colors.white,
+
                 child: ListView(
-                  padding: EdgeInsets.zero,
+
                   children: [
-                    DrawerHeader(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                      ),
-                      child: Row(
 
-                        children: [
-                          CircleAvatar(
-                            radius: 40,
-                            backgroundImage: AssetImage(AppAssets.food),
-                          ),
-                         10.horizontalSpace,
+                       Container(
+                         padding: EdgeInsets.symmetric(horizontal: 20),
+                         color: Colors.white,
+                         height: MediaQuery.of(context).size.height *.25,
+                         child: Row(
 
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Gamal Barakat',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
+                          children: [
+                            CircleAvatar(
+                              radius: 40,
+                              backgroundImage: AssetImage(AppAssets.food),
+                            ),
+                           20.horizontalSpace,
+
+                            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  '${BlocProvider.of<HomeViewCubit>(context).profileModel!.user!.name}',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 18.sp,
+                                    ),
+                                  ),
+
+                                Text(
+                                  '${BlocProvider.of<HomeViewCubit>(context).profileModel!.user!.phone}',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 16.sp,
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                '012222',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                ),
-                              ),
-                            ],
-                          ),
-                          // رقم الهاتف
+                              ],
+                            ),
 
-                        ],
-                      ),
-                    ),
-                    // خيارات القائمة
+
+                          ],
+                                                 ),
+                       ),
+
+
                     ListTile(
                       leading: Icon(Icons.home),
                       title: Text('الصفحة الرئيسية'),
@@ -81,7 +89,7 @@ class LayoutScreen extends StatelessWidget {
                       title: Text('الإعدادات'),
                       onTap: () {
                         // اختر الإجراء الذي تريده لهذا الخيار
-                        Navigator.pop(context);
+                        navigato(context, ZakatScreen());
                       },
                     ),
                     // يمكنك إضافة المزيد من الخيارات هنا
@@ -132,12 +140,19 @@ class LayoutScreen extends StatelessWidget {
 
 
                 ),
+
                 body: SafeArea(
-                  child: BlocProvider
-                      .of<HomeViewCubit>(context)
-                      .Scrreen[BlocProvider
-                      .of<HomeViewCubit>(context)
-                      .CurrentIndex],
+                  child: Stack(
+                    children: [
+                      BlocProvider
+                          .of<HomeViewCubit>(context)
+                          .Scrreen[BlocProvider
+                          .of<HomeViewCubit>(context)
+                          .CurrentIndex],
+
+                    ],
+                   
+                  ),
                 )
 
 

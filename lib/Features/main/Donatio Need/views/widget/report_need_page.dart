@@ -132,7 +132,7 @@ class ReportNeedPage extends StatelessWidget {
                   ),
 
                   if(BlocProvider.of<DonationNeedViewCubit>(context).donationPhoto!=null)
-                    SizedBox(width: 200,height:200,child: Image.file(BlocProvider.of<DonationNeedViewCubit>(context).donationPhoto!,width: MediaQuery.of(context).size.width,)),
+                    SizedBox(width:10,height:10,child: Image.file(BlocProvider.of<DonationNeedViewCubit>(context).donationPhoto!,width: MediaQuery.of(context).size.width,)),
 
                   SizedBox(height: 20.h),
 
@@ -153,7 +153,7 @@ class ReportNeedPage extends StatelessWidget {
                             categoryId:'3' ,
                             description:statusDescriptionController.text ,
                             details:statusDescriptionController.text,
-                            imageUrl:Uri.file(BlocProvider.of<DonationNeedViewCubit>(context).donationPhoto!.path).pathSegments  ,
+                            imageUrl:BlocProvider.of<DonationNeedViewCubit>(context).donationPhoto!.path ,
                             price: '0',  );
 
                         }

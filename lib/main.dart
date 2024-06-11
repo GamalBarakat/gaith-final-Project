@@ -54,6 +54,7 @@ class MyApp extends StatelessWidget {
     child:MaterialApp(
       debugShowCheckedModeBanner: false,
 
+
       locale: const Locale('ar', ''),
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,

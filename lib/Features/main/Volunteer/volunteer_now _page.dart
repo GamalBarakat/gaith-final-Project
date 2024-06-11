@@ -1,5 +1,10 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:gaith/Features/main/Volunteer/cubit/volunteer_view_cubit.dart';
+import 'package:gaith/Features/main/Volunteer/cubit/volunteer_view_state.dart';
 
 import '../../../core/sharde/widget/default_button.dart';
 import '../../../core/sharde/widget/navigation.dart';
@@ -37,59 +42,137 @@ class VolunteerNowPage extends StatelessWidget {
 
         ),
         body:
-        Column(
-          children: [
+    BlocProvider(
+    create: (context) => VolunteerViewCubit(),
 
-            20.verticalSpace,
-            CustomTextFormField(hintText: 'الاسم',controller: nameController,validator:(value) {
-      if (value!.isEmpty) {
-      return 'name is  empty';
-      } else {
-      return null;
+    child: BlocConsumer<VolunteerViewCubit, VolunteerViewState>(
+    listener: (context,state)
+    {
+
+      if (state is AddVolunteerViewStateSuccess) {
+
+        Fluttertoast.showToast(
+            msg: 'تم تسجيل بيانتك بنجاح',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.green,
+            textColor: Colors.white,
+            fontSize: 16.0);
+      //  navigatofinsh(context, LayoutScreen(), false);
+        } else {
+
+
+        Fluttertoast.showToast(
+            msg: 'خطاء فى عمليه التسجيل حاول مره اخرى',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 2,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
+
+
+
+
+
       }
-      },
-            textInputType: TextInputType.name,),
-            CustomTextFormField(hintText: 'العنوان',controller: addressController,validator:(value) {
-              if (value!.isEmpty) {
-                return 'address is  empty';
-              } else {
-                return null;
-              }
-            },
-              textInputType: TextInputType.streetAddress,),
-            CustomTextFormField(hintText: 'العمر',controller: ageController,validator:(value) {
-              if (value!.isEmpty) {
-                return 'age is  empty';
-              } else {
-                return null;
-              }
-            },
-              textInputType: TextInputType.number,),
-            CustomTextFormField(hintText: 'المهنه',controller:occupationController,validator:(value) {
-              if (value!.isEmpty) {
-                return 'occupation is  empty';
-              } else {
-                return null;
-              }
-            },
-              textInputType: TextInputType.text,),
-            CustomTextFormField(hintText: 'الخبرات',controller: experienceController,validator:(value) {
-              if (value!.isEmpty) {
-                return 'experience is  empty';
-              } else {
-                return null;
-              }
-            },
-              textInputType: TextInputType.text,),
+    },
+    builder:(context,state)
+    {
 
-            20.verticalSpace,
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: DefaultButton(text: 'تأكيد',function: (){},),
-            )
-          ],
-        )
-      )
-     ;
+    return
+        Form(
+          key: keyForm,
+          child: Column(
+            children: [
+
+              20.verticalSpace,
+              CustomTextFormField(hintText: 'الاسم',controller: nameController,validator:(value) {
+                if (value!.isEmpty) {
+                return 'name is  empty';
+                } else {
+                return null;
+                }
+                },
+              textInputType: TextInputType.name,),
+              CustomTextFormField(hintText: 'العنوان',controller: addressController,validator:(value) {
+                if (value!.isEmpty) {
+                  return 'address is  empty';
+                } else {
+                  return null;
+                }
+              },
+                textInputType: TextInputType.streetAddress,),
+              CustomTextFormField(hintText: 'العمر',controller: ageController,validator:(value) {
+                if (value!.isEmpty) {
+                  return 'age is  empty';
+                } else {
+                  return null;
+                }
+              },
+                textInputType: TextInputType.number,),
+              CustomTextFormField(hintText: 'المهنه',controller:occupationController,validator:(value) {
+                if (value!.isEmpty) {
+                  return 'occupation is  empty';
+                } else {
+                  return null;
+                }
+              },
+                textInputType: TextInputType.text,),
+              CustomTextFormField(hintText: 'الخبرات',controller: experienceController,validator:(value) {
+                if (value!.isEmpty) {
+                  return 'experience is  empty';
+                } else {
+                  return null;
+                }
+              },
+                textInputType: TextInputType.text,),
+
+              20.verticalSpace,
+
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: ConditionalBuilder(
+                  condition:state is !AddVolunteerViewStateLoading,
+
+                  builder: (context) =>DefaultButton(text: 'تسجيل الدخول',function: (){
+                    if (keyForm.currentState!.validate()) {
+                      BlocProvider.of<VolunteerViewCubit>(context).addVolunteer(
+          name: nameController.text,
+                        address: addressController.text,
+          age: ageController.text,
+          ex: experienceController.text,
+          work:    occupationController.text,
+          volunteer_id:            '5'
+
+                      );
+                    }
+
+
+                  },),
+                  fallback:(context) => const Center(child: CircularProgressIndicator(
+                    strokeWidth: 5.0,
+                    backgroundColor: Colors.black,
+                    color: Colors.blue,
+
+                    semanticsLabel: 'Linear progress indicator',
+
+                  ) ,
+
+                  ),
+                ),
+
+              ),
+
+            ],
+          ),
+        );
+    }
+
+
+    ),
+    )
+    );
   }
 }

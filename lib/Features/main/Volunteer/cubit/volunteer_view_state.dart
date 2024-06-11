@@ -11,5 +11,12 @@ class VolunteerViewStateError extends VolunteerViewState  {
   VolunteerViewStateError(this.error);
 }
 
+class AddVolunteerViewStateLoading extends VolunteerViewState {}
 
+class AddVolunteerViewStateSuccess extends VolunteerViewState {}
+
+class AddVolunteerViewStateError extends VolunteerViewState  {
+  final String error;
+  AddVolunteerViewStateError(this.error);
+}
 

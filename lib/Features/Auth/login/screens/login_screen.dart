@@ -9,32 +9,31 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-                height: MediaQuery.of(context).size.height *.3,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    bottomLeft:Radius.circular(25.sp),
-                    bottomRight:Radius.circular(25.sp),
+      body: Column(
+        children: [
+          Container(
+              height: MediaQuery.of(context).size.height *.3,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  bottomLeft:Radius.circular(25.sp),
+                  bottomRight:Radius.circular(25.sp),
 
 
-                  )
-                  ,
-                  color: Color(0xff529C9C),
-                ),
+                )
+                ,
+                color: Color(0xff529C9C),
+              ),
 
 
-                child: Center(child: Image.asset(AppAssets.logo,width: 100.w,))),
-            20.verticalSpace,
+              child: Center(child: Image.asset(AppAssets.logo,width: 100.w,))),
+          20.verticalSpace,
 
 
-            FormFieldInLogin()
-            // FormFieldInRegister()
-          ],
-        ),
+          FormFieldInLogin()
+          // FormFieldInRegister()
+        ],
       ),
     );
   }
