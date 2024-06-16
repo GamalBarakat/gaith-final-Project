@@ -26,28 +26,7 @@ class VolunteerPage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(15.sp),
-                              bottomRight: Radius.circular(15.sp),
-                            ),
-                            color: Colors.white),
-                        width: MediaQuery.of(context).size.width,
-                        child: Row(
-mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            IconButton(
-                                onPressed: () {
-                                  navigapop(context);
-                                },
-                                icon: Icon(Icons.arrow_back_ios)),
-                            IconButton(
-                                onPressed: () {
-                                },
-                                icon: Icon(Icons.drag_indicator_rounded)),
-                          ],
-                        )),
+
                     ConditionalBuilder(
                         condition: BlocProvider.of<VolunteerViewCubit>(context)
                                 .volunteerModel !=
@@ -78,7 +57,7 @@ mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           );
                         },
                         fallback: (context) {
-                          return Text('data');
+                          return CircleAvatar();
                         }),
                   ],
                 ),

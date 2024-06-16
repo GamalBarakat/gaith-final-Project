@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gaith/Features/main/Volunteer/cubit/volunteer_view_cubit.dart';
 import 'package:gaith/Features/main/Volunteer/cubit/volunteer_view_state.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/sharde/widget/default_button.dart';
 import '../../../core/sharde/widget/navigation.dart';
@@ -21,26 +22,16 @@ class VolunteerNowPage extends StatelessWidget {
     return
       Scaffold(
         backgroundColor:Color(0xffF4F6FE),
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          leading: IconButton(onPressed: (){navigapop(context);}, icon: Icon(Icons.arrow_back_ios)),
-          title:Text('متطوع',style:
-          TextStyle(
-            color: Colors.black,
+          appBar: AppBar(
+            backgroundColor:Color(0xffF4F6FE),
 
-            fontWeight: FontWeight.bold,
-            fontSize: 17.sp,
-            fontFamily: 'Cairo',
+            leading: IconButton(icon: Icon(Icons.arrow_back_ios_rounded),onPressed: (){
+              navigapop(context);
+            },)
+            ,
 
-
-          ),
-
-
-          ),
-
-
-
-        ),
+            title:  Text('متطوع',style:GoogleFonts.cairo(textStyle: TextStyle(fontSize: 16.sp,color: Colors.black,fontWeight: FontWeight.w700)),),
+            centerTitle: true,),
         body:
     BlocProvider(
     create: (context) => VolunteerViewCubit(),
@@ -84,88 +75,90 @@ class VolunteerNowPage extends StatelessWidget {
     return
         Form(
           key: keyForm,
-          child: Column(
-            children: [
-
-              20.verticalSpace,
-              CustomTextFormField(hintText: 'الاسم',controller: nameController,validator:(value) {
-                if (value!.isEmpty) {
-                return 'name is  empty';
-                } else {
-                return null;
-                }
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+            
+                20.verticalSpace,
+                CustomTextFormField(hintText: 'الاسم',controller: nameController,validator:(value) {
+                  if (value!.isEmpty) {
+                  return 'name is  empty';
+                  } else {
+                  return null;
+                  }
+                  },
+                textInputType: TextInputType.name,),
+                CustomTextFormField(hintText: 'العنوان',controller: addressController,validator:(value) {
+                  if (value!.isEmpty) {
+                    return 'address is  empty';
+                  } else {
+                    return null;
+                  }
                 },
-              textInputType: TextInputType.name,),
-              CustomTextFormField(hintText: 'العنوان',controller: addressController,validator:(value) {
-                if (value!.isEmpty) {
-                  return 'address is  empty';
-                } else {
-                  return null;
-                }
-              },
-                textInputType: TextInputType.streetAddress,),
-              CustomTextFormField(hintText: 'العمر',controller: ageController,validator:(value) {
-                if (value!.isEmpty) {
-                  return 'age is  empty';
-                } else {
-                  return null;
-                }
-              },
-                textInputType: TextInputType.number,),
-              CustomTextFormField(hintText: 'المهنه',controller:occupationController,validator:(value) {
-                if (value!.isEmpty) {
-                  return 'occupation is  empty';
-                } else {
-                  return null;
-                }
-              },
-                textInputType: TextInputType.text,),
-              CustomTextFormField(hintText: 'الخبرات',controller: experienceController,validator:(value) {
-                if (value!.isEmpty) {
-                  return 'experience is  empty';
-                } else {
-                  return null;
-                }
-              },
-                textInputType: TextInputType.text,),
-
-              20.verticalSpace,
-
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: ConditionalBuilder(
-                  condition:state is !AddVolunteerViewStateLoading,
-
-                  builder: (context) =>DefaultButton(text: 'تسجيل الدخول',function: (){
-                    if (keyForm.currentState!.validate()) {
-                      BlocProvider.of<VolunteerViewCubit>(context).addVolunteer(
-          name: nameController.text,
-                        address: addressController.text,
-          age: ageController.text,
-          ex: experienceController.text,
-          work:    occupationController.text,
-          volunteer_id:            '5'
-
-                      );
-                    }
-
-
-                  },),
-                  fallback:(context) => const Center(child: CircularProgressIndicator(
-                    strokeWidth: 5.0,
-                    backgroundColor: Colors.black,
-                    color: Colors.blue,
-
-                    semanticsLabel: 'Linear progress indicator',
-
-                  ) ,
-
+                  textInputType: TextInputType.streetAddress,),
+                CustomTextFormField(hintText: 'العمر',controller: ageController,validator:(value) {
+                  if (value!.isEmpty) {
+                    return 'age is  empty';
+                  } else {
+                    return null;
+                  }
+                },
+                  textInputType: TextInputType.number,),
+                CustomTextFormField(hintText: 'المهنه',controller:occupationController,validator:(value) {
+                  if (value!.isEmpty) {
+                    return 'occupation is  empty';
+                  } else {
+                    return null;
+                  }
+                },
+                  textInputType: TextInputType.text,),
+                CustomTextFormField(hintText: 'الخبرات',controller: experienceController,validator:(value) {
+                  if (value!.isEmpty) {
+                    return 'experience is  empty';
+                  } else {
+                    return null;
+                  }
+                },
+                  textInputType: TextInputType.text,),
+            
+                20.verticalSpace,
+            
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: ConditionalBuilder(
+                    condition:state is !AddVolunteerViewStateLoading,
+            
+                    builder: (context) =>DefaultButton(text: 'تسجيل الدخول',function: (){
+                      if (keyForm.currentState!.validate()) {
+                        BlocProvider.of<VolunteerViewCubit>(context).addVolunteer(
+            name: nameController.text,
+                          address: addressController.text,
+            age: ageController.text,
+            ex: experienceController.text,
+            work:    occupationController.text,
+            volunteer_id:            '5'
+            
+                        );
+                      }
+            
+            
+                    },),
+                    fallback:(context) => const Center(child: CircularProgressIndicator(
+                      strokeWidth: 5.0,
+                      backgroundColor: Colors.black,
+                      color: Colors.blue,
+            
+                      semanticsLabel: 'Linear progress indicator',
+            
+                    ) ,
+            
+                    ),
                   ),
+            
                 ),
-
-              ),
-
-            ],
+            
+              ],
+            ),
           ),
         );
     }

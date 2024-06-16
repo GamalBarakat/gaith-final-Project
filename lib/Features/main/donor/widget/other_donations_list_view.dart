@@ -130,7 +130,7 @@ class DonationDetails extends StatelessWidget {
    var phoneController=TextEditingController();
    var addressController=TextEditingController();
    var descriptionController=TextEditingController();
-
+   var keyForm = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return
@@ -142,131 +142,135 @@ class DonationDetails extends StatelessWidget {
           listener: (context, state) {},
           builder: (context, state){
             return Scaffold(
+              resizeToAvoidBottomInset: true,
               body:
               SafeArea(
                 child:  
 
-                SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Stack(
-                        clipBehavior: Clip.none,
+                Form(
+                  key:keyForm ,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Stack(
+                          clipBehavior: Clip.none,
 
-                        children: [
-                          Image.asset( 'assets/images/banar1.png',width: MediaQuery.of(context).size.width,fit: BoxFit.fill,),
-                          Positioned(
+                          children: [
+                            Image.asset( 'assets/images/banar1.png',width: MediaQuery.of(context).size.width,fit: BoxFit.fill,),
+                            Positioned(
 
-                              bottom: -50,
-                              left: 8,
-                              right: 8,
-                              child:
-                              Container(
-                                width: MediaQuery.of(context).size.width,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(5),
-                                  border: Border.all(
-                                    color: Colors.grey,
-                                    width: 1,
+                                bottom: -50,
+                                left: 8,
+                                right: 8,
+                                child:
+                                Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(5),
+                                    border: Border.all(
+                                      color: Colors.grey,
+                                      width: 1,
+                                    ),
+
                                   ),
-
-                                ),
-                                padding: const EdgeInsets.all(5),
+                                  padding: const EdgeInsets.all(5),
 
 
-                                child:  Column(
-                                  crossAxisAlignment:CrossAxisAlignment.start,
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Text('الصجه', style: TextStyle(
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w700,
+                                  child:  Column(
+                                    crossAxisAlignment:CrossAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text('الصجه', style: TextStyle(
+                                        fontSize: 14.sp,
+                                        fontWeight: FontWeight.w700,
 
-                                      fontFamily: 'Tajawal',
-                                    ),),
-                                    Text('تطوير المنظومه الصحيه لعلاج ومكافحه الامراض الاكثر انتشارا فى المجتمع المصرى ',style: TextStyle(  fontSize: 12.sp,
-                                      fontWeight: FontWeight.w400,
-                                      color: Color(0xff555555),
+                                        fontFamily: 'Tajawal',
+                                      ),),
+                                      Text('تطوير المنظومه الصحيه لعلاج ومكافحه الامراض الاكثر انتشارا فى المجتمع المصرى ',style: TextStyle(  fontSize: 12.sp,
+                                        fontWeight: FontWeight.w400,
+                                        color: Color(0xff555555),
 
-                                      fontFamily: 'Tajawal',),),
+                                        fontFamily: 'Tajawal',),),
 
-                                  ],
-                                ),
-                              )),
-                          IconButton(onPressed: (){navigapop(context);}, icon: Icon(Icons.arrow_back_ios))
-
-
-                        ],
-                      ),
-
-                      SizedBox(height: 50.h,),
-
-                      CustomTextFormField(hintText: 'الإسم',
-                        controller:nameController,
-                        validator:(value) {
-                          if (value!.isEmpty) {
-                            return 'حقل الاسم مطلوب';
-                          } else {
-                            return null;
-                          }
-                        },
-                        textInputType: TextInputType.visiblePassword,),
-                      CustomTextFormField(hintText: 'رقم الموبيل',
-                        controller:phoneController,
-                        validator:(value) {
-                          if (value!.isEmpty) {
-                            return 'حقل الموبيل مطلوب';
-                          } else {
-                            return null;
-                          }
-                        },
-                        textInputType: TextInputType.phone,),
-                      CustomTextFormField(hintText: 'العنوان',
-                        controller:addressController,
-                        validator:(value) {
-                          if (value!.isEmpty) {
-                            return 'حقل العنوان مطلوب';
-                          } else {
-                            return null;
-                          }
-                        },
-                        textInputType: TextInputType.streetAddress,),
-                      CustomTextFormField(hintText: 'تفاصيل التبرع',
-                        controller:descriptionController,
-                        validator:(value) {
-                          if (value!.isEmpty) {
-                            return 'هذا الحقل  مطلوب';
-                          } else {
-                            return null;
-                          }
-                        },
-                        textInputType: TextInputType.text,),
-
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          InkWell(onTap:(){
-
-                            BlocProvider.of<HomeViewCubit>(context).getProfileImageByCamera();
-                          } ,child: Icon(Icons.camera_alt,color: Color(0xff529C9C),)),
-                          InkWell(onTap:(){
-
-                            BlocProvider.of<HomeViewCubit>(context).getProfileImageByGallery();
-                          } ,child: Image.asset(AppAssets.Attachphoto)),
+                                    ],
+                                  ),
+                                )),
+                            IconButton(onPressed: (){navigapop(context);}, icon: Icon(Icons.arrow_back_ios))
 
 
-                        ],
-                      ),
-                       if(BlocProvider.of<HomeViewCubit>(context).donationPhoto!=null)
-                      SizedBox(width: 200,child: Image.file(BlocProvider.of<HomeViewCubit>(context).donationPhoto!,width: MediaQuery.of(context).size.width,)),
+                          ],
+                        ),
 
-                    SizedBox(height: 20.h),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: DefaultButton(function: (){},text: 'تبرع',),
-                      )
+                        SizedBox(height: 50.h,),
 
-                    ],
+                        CustomTextFormField(hintText: 'الإسم',
+                          controller:nameController,
+                          validator:(value) {
+                            if (value!.isEmpty) {
+                              return 'حقل الاسم مطلوب';
+                            } else {
+                              return null;
+                            }
+                          },
+                          textInputType: TextInputType.visiblePassword,),
+                        CustomTextFormField(hintText: 'رقم الموبيل',
+                          controller:phoneController,
+                          validator:(value) {
+                            if (value!.isEmpty) {
+                              return 'حقل الموبيل مطلوب';
+                            } else {
+                              return null;
+                            }
+                          },
+                          textInputType: TextInputType.phone,),
+                        CustomTextFormField(hintText: 'العنوان',
+                          controller:addressController,
+                          validator:(value) {
+                            if (value!.isEmpty) {
+                              return 'حقل العنوان مطلوب';
+                            } else {
+                              return null;
+                            }
+                          },
+                          textInputType: TextInputType.streetAddress,),
+                        CustomTextFormField(hintText: 'تفاصيل التبرع',
+                          controller:descriptionController,
+                          validator:(value) {
+                            if (value!.isEmpty) {
+                              return 'هذا الحقل  مطلوب';
+                            } else {
+                              return null;
+                            }
+                          },
+                          textInputType: TextInputType.text,),
+
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            InkWell(onTap:(){
+
+                              BlocProvider.of<HomeViewCubit>(context).getProfileImageByCamera();
+                            } ,child: Icon(Icons.camera_alt,color: Color(0xff529C9C),)),
+                            InkWell(onTap:(){
+
+                              BlocProvider.of<HomeViewCubit>(context).getProfileImageByGallery();
+                            } ,child: Image.asset(AppAssets.Attachphoto)),
+
+
+                          ],
+                        ),
+                         if(BlocProvider.of<HomeViewCubit>(context).donationPhoto!=null)
+                        SizedBox(width: 200,child: Image.file(BlocProvider.of<HomeViewCubit>(context).donationPhoto!,width: MediaQuery.of(context).size.width,)),
+
+                      SizedBox(height: 20.h),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: DefaultButton(function: (){},text: 'تبرع',),
+                        )
+
+                      ],
+                    ),
                   ),
                 ),
 

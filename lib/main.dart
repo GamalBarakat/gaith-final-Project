@@ -28,7 +28,7 @@ Future<void> main() async {
     }
     else{
 
-      widget=const LoginScreen();
+      widget= LoginScreen();
     }
   }
   else

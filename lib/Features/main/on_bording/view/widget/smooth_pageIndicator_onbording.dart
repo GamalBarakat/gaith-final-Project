@@ -14,11 +14,11 @@ class SmoothPageIndicatorOnBording extends StatelessWidget {
       effect: const WormEffect(
           spacing: 8.0,
           radius: 10.0,
-          dotWidth: 20.0,
-          dotHeight: 20.0,
+          dotWidth: 40.0,
+          dotHeight: 5.0,
           paintStyle: PaintingStyle.stroke,
           strokeWidth: 1.5,
-          activeDotColor: Color(0xff529C9C)),
+          activeDotColor: Color(0xff22AAE4)),
     );
   }
 }

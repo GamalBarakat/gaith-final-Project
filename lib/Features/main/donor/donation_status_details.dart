@@ -4,9 +4,11 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gaith/Features/main/home/feature/manager/home_cubite.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 import 'package:linear_progress_bar/linear_progress_bar.dart';
-import 'package:wave_linear_progress_indicator/wave_linear_progress_indicator.dart';
+
 
 import '../../../core/sharde/app_assets.dart';
 import '../../../core/sharde/app_colors.dart';
@@ -23,6 +25,16 @@ class DonationStatusDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
+      appBar: AppBar(
+
+
+        leading: IconButton(icon: Icon(Icons.arrow_back_ios_rounded),onPressed: (){
+          navigapop(context);
+        },)
+        ,
+
+        title:  Text('تفاصيل الحاله',style:GoogleFonts.cairo(textStyle: TextStyle(fontSize: 16.sp,color: Colors.black,fontWeight: FontWeight.w700)),),
+        centerTitle: true,),
       backgroundColor:  Color(0xffF4F6FE),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -51,40 +63,8 @@ class DonationStatusDetails extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(15.sp),
-                              bottomRight: Radius.circular(15.sp),
-                              topLeft:  Radius.circular(15.sp),
-                              topRight: Radius.circular(15.sp),
-                            ),
-                            color: Colors.white),
-                        width: MediaQuery.of(context).size.width,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            IconButton(
-                                onPressed: () {
-                                  navigapop(context);
-                                },
-                                icon: Icon(Icons.arrow_back_ios)),
 
-                            Text('تفاصيل الحاله',  style: TextStyle(
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w400,
-                              color: Color(0xff555555),
 
-                              fontFamily: 'Tajawal',
-                            ),),
-
-                            IconButton(
-                                onPressed: () {
-                                },
-                                icon: Icon(Icons.drag_indicator_rounded)),
-                          ],
-                        )),
-                    10.verticalSpace,
                     ClipRRect(
                       borderRadius: BorderRadius.circular(10.0),
                       child: Image.network(
@@ -108,41 +88,33 @@ class DonationStatusDetails extends StatelessWidget {
                         children: [
 
                           Text( '${BlocProvider.of<DonorViewCubit>(context).detailsModel!.donation!.name}',
-                            style: TextStyle(
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w700,
-
-                              fontFamily: 'Tajawal',
-                            ),
+                            style:GoogleFonts.cairo(textStyle: TextStyle(fontSize: 16.sp,color: Colors.black,fontWeight: FontWeight.w700)),
 
                           ),
                           20.verticalSpace,
                           Text(
                             '${BlocProvider.of<DonorViewCubit>(context).detailsModel!.donation!.des}'
                             ,
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w400,
-                              color: Color(0xff555555),
-
-                              fontFamily: 'Tajawal',
-                            ),
-                          ),
-                          5.verticalSpace,
+            style:GoogleFonts.cairo(textStyle: TextStyle(fontSize: 14.sp,color: Color(0xff555555),fontWeight: FontWeight.w600)
+            ) ),
+                          10.verticalSpace,
 
                           Row(
                             children: [
-                              Icon(Icons.phone),
+                              Icon(FeatherIcons.phone,color: Colors.amber,),
                               5.horizontalSpace,
-                              Text('${BlocProvider.of<DonorViewCubit>(context).detailsModel!.donation!.phone}')
+                              Text('${BlocProvider.of<DonorViewCubit>(context).detailsModel!.donation!.phone}', style:GoogleFonts.cairo(textStyle: TextStyle(fontSize: 14.sp,color: Colors.black,fontWeight: FontWeight.w600)
+                              ))
                             ],
                           ),
                           5.verticalSpace,
                           Row(
                             children: [
-                              Image.asset(AppAssets.location_icon,width: 20.w,),
+                              Icon(FeatherIcons.map,color: Colors.amber,),
                               5.horizontalSpace,
-                              Text('${BlocProvider.of<DonorViewCubit>(context).detailsModel!.donation!.address}')
+                              Text('${BlocProvider.of<DonorViewCubit>(context).detailsModel!.donation!.address}',
+                                  style:GoogleFonts.cairo(textStyle: TextStyle(fontSize: 14.sp,color: Colors.black,fontWeight: FontWeight.w600)
+                                  ))
                             ],
                           ),
 
@@ -160,14 +132,14 @@ class DonationStatusDetails extends StatelessWidget {
                                       maxSteps: int.parse( '${BlocProvider.of<DonorViewCubit>(context).detailsModel!.donation!.price}'),
                                       progressType: LinearProgressBar.progressTypeLinear,
                                       currentStep:int.parse( '${BlocProvider.of<DonorViewCubit>(context).detailsModel!.donation!.pay}'),
-                                      progressColor: Colors.blue,
-                                      backgroundColor: Colors.grey,
+                                      progressColor: Colors.amber,
+                                      backgroundColor: Colors.black,
 
                                       minHeight: 15.h,
 
                                     ),
                                   ),
-                                  Card(elevation:2,child: Container(width: 50.w,height:18.h,decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color: Colors.grey),child: Center(child: Text('${(100/1000)*100}%',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),))))
+                                  Card(elevation:2,child: Container(width: 50.w,height:18.h,decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color: Colors.amber),child: Center(child: Text('${(100/1000)*100}%',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),))))
                                 ],
                               ),
                               Padding(

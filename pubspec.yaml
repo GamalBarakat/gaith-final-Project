@@ -46,6 +46,12 @@ dependencies:
   linear_progress_bar: "^1.1.1"
   marquee: ^2.2.3
   flutter_dismissible_tile: ^1.0.3
+  google_fonts: ^6.2.1
+  flutter_feather_icons: ^2.0.0+1
+  myfatoorah_flutter: ^3.0.13
+  lottie: ^2.1.0
+
+
 
 
 

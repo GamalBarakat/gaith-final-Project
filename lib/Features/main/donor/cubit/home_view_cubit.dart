@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import '../../../../core/sharde/dioHelper.dart';
 import '../model/cart_model.dart';
 import '../model/details_model/details_model.dart';
@@ -90,7 +92,7 @@ void getDonationsByCategory({required dynamic categoryId}){
   });
 }
 
-void addCart({required int donationId}){
+void addCart( {required int donationId}){
 
   emit(AddCartStateLoading());
   DioHelper.getData(url: 'add_cart/${donationId}')
@@ -98,6 +100,14 @@ void addCart({required int donationId}){
 print('Addd Sucesss');
 
     print(value.data);
+Fluttertoast.showToast(
+    msg: 'تمت الاضافة الى السلة',
+    toastLength: Toast.LENGTH_SHORT,
+    gravity: ToastGravity.BOTTOM,
+    timeInSecForIosWeb: 1,
+    backgroundColor: Colors.green,
+    textColor: Colors.white,
+    fontSize: 16.0);
     emit(AddCartStateSuccess());
   })
       .catchError((error) {

@@ -15,7 +15,7 @@ class DefaultButton extends StatelessWidget {
     return
       Container(
   decoration: BoxDecoration(
-    color:  AppColors.buttonColor,
+    color:  Color(0xff22AAE4),
     borderRadius: BorderRadius.circular(8.0),
   ),
   width: double.infinity,
@@ -27,7 +27,7 @@ class DefaultButton extends StatelessWidget {
       text,
 
       style: TextStyle(
-      fontSize: 16.sp,
+      fontSize: 15.sp,
       fontWeight: FontWeight.w700,
       color: Colors.white,
       fontFamily: 'Tajawal',

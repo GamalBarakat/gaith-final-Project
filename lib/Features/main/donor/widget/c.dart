@@ -29,11 +29,12 @@ class BottomNavigationItem extends StatelessWidget {
         },
         child:  Container(
 
-      padding: EdgeInsets.all(5),
-          width: 70.w,
+      padding: EdgeInsets.all(3),
+          width: 100.w,
+          height: 40.h,
           decoration: BoxDecoration(
-           borderRadius: BorderRadius.circular(15),
-            color: isSelected ? Colors.green : Colors.grey,
+           borderRadius: BorderRadius.circular(5),
+            color: isSelected ? Color(0xff22AAE4) : Colors.white,
           ),
           child:
         Center(
@@ -41,9 +42,11 @@ class BottomNavigationItem extends StatelessWidget {
             child: Text(
                     label,
                     style: TextStyle(
-                      fontWeight: FontWeight.w600,
+                      fontWeight: FontWeight.w500,
                       fontSize: 12.sp,
                       color: isSelected ? Colors.white : Colors.black,
+                      fontFamily: 'Tajawal',
+
                       // letterSpacing: -0.5,
                     ),
                   ),

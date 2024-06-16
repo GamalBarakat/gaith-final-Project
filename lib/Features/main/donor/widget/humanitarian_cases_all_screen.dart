@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gaith/Features/main/donor/cubit/home_view_cubit.dart';
 import 'package:gaith/Features/main/donor/cubit/home_view_state.dart';
 import 'package:gaith/core/sharde/app_assets.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../../core/sharde/widget/default_button.dart';
@@ -19,7 +20,17 @@ class HumanitarianCasesAllScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
+      backgroundColor: Color(0xffF4F6FE),
+        appBar: AppBar(
+
+
+        leading: IconButton(icon: Icon(Icons.arrow_back_ios_rounded),onPressed: (){
+          navigapop(context);
+        },)
+        ,
+
+        title:  Text('الحالات الانسانيه',style:GoogleFonts.cairo(textStyle: TextStyle(fontSize: 16.sp,color: Colors.black,fontWeight: FontWeight.w700)),),
+        centerTitle: true,),
         body: BlocProvider(
           create: (context) => DonorViewCubit()..getHomeData(),
           child: BlocConsumer<DonorViewCubit, DonorViewState>(
@@ -28,62 +39,65 @@ class HumanitarianCasesAllScreen extends StatelessWidget {
                 return Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    SizedBox(
-                      height: 30.h,
-                      child: (BlocProvider.of<DonorViewCubit>(context)
-                                  .donorModel ==
-                              null)
-                          ? Container(
-                              padding: EdgeInsets.all(10),
-                              child: Shimmer.fromColors(
-                                  baseColor: Colors.grey,
-                                  highlightColor: Colors.white,
-                                  child: Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    decoration: BoxDecoration(
-                                      color: Colors.grey.shade50,
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                  )),
-                            )
-                          :
-                      ListView.builder(
-                              shrinkWrap: true,
-                              scrollDirection: Axis.horizontal,
-                              padding: EdgeInsets.symmetric(horizontal: 16),
-                              itemCount:
-                                  BlocProvider.of<DonorViewCubit>(context)
-                                      .donorModel!
-                                      .catigory!
-                                      .length,
-                              itemBuilder: (context, index) {
-                                return BottomNavigationItem(
-                                  onTap: () {
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 5),
+                      child: SizedBox(
+                        height: 40.h,
+                        child: (BlocProvider.of<DonorViewCubit>(context)
+                                    .donorModel ==
+                                null)
+                            ? Container(
+                                padding: EdgeInsets.all(10),
+                                child: Shimmer.fromColors(
+                                    baseColor: Colors.grey,
+                                    highlightColor: Colors.white,
+                                    child: Container(
+                                      width: MediaQuery.of(context).size.width,
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey.shade50,
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                    )),
+                              )
+                            :
+                        ListView.builder(
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                padding: EdgeInsets.symmetric(horizontal: 16),
+                                itemCount:
                                     BlocProvider.of<DonorViewCubit>(context)
-                                        .changeBottomItem(index: index);
-                                    BlocProvider.of<DonorViewCubit>(context)
-                                        .getDonationsByCategory(
-                                            categoryId:
-                                                BlocProvider.of<DonorViewCubit>(
-                                                        context)
-                                                    .donorModel!
-                                                    .catigory![index]
-                                                    .id);
-                                  },
-                                  label:
+                                        .donorModel!
+                                        .catigory!
+                                        .length,
+                                itemBuilder: (context, index) {
+                                  return BottomNavigationItem(
+                                    onTap: () {
                                       BlocProvider.of<DonorViewCubit>(context)
-                                          .donorModel!
-                                          .catigory![index]
-                                          .nameAr
-                                          .toString(),
-                                  isSelected: index ==
+                                          .changeBottomItem(index: index);
                                       BlocProvider.of<DonorViewCubit>(context)
-                                          .currentItem,
-                                );
-                              },
-                            ),
+                                          .getDonationsByCategory(
+                                              categoryId:
+                                                  BlocProvider.of<DonorViewCubit>(
+                                                          context)
+                                                      .donorModel!
+                                                      .catigory![index]
+                                                      .id);
+                                    },
+                                    label:
+                                        BlocProvider.of<DonorViewCubit>(context)
+                                            .donorModel!
+                                            .catigory![index]
+                                            .nameAr
+                                            .toString(),
+                                    isSelected: index ==
+                                        BlocProvider.of<DonorViewCubit>(context)
+                                            .currentItem,
+                                  );
+                                },
+                              ),
+                      ),
                     ),
-                    10.verticalSpace,
+
                     Flexible(
                       fit: FlexFit.loose,
                       child: BlocProvider.of<DonorViewCubit>(context)
@@ -180,10 +194,7 @@ class HumanitarianCasesAllScreen extends StatelessWidget {
                                         color: Colors.white,
                                         borderRadius:
                                             BorderRadius.circular(10.sp),
-                                        border: Border.all(
-                                          color: Colors.grey,
-                                          width: 0.5,
-                                        ),
+
                                       ),
                                       child: Row(
                                         crossAxisAlignment:
@@ -199,7 +210,7 @@ class HumanitarianCasesAllScreen extends StatelessWidget {
                                                     Radius.circular(10.sp),
                                               ),
                                               child:
-                                                  Image.network('${item.img}'),
+                                                  Image.network('${item.img}',height: MediaQuery.of(context).size.height,fit: BoxFit.fitHeight,),
                                             ),
                                           ),
                                           Expanded(
@@ -217,26 +228,16 @@ class HumanitarianCasesAllScreen extends StatelessWidget {
                                                 children: [
                                                   Text(
                                                     item.name.toString(),
-                                                    style: TextStyle(
-                                                      fontSize: 14.sp,
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                      fontFamily: 'Tajawal',
-                                                    ),
+
+                                                        style:GoogleFonts.cairo(textStyle: TextStyle(fontSize: 13.sp,color: Colors.black,fontWeight: FontWeight.w700))
                                                   ),
                                                   Text(
                                                     '${item.dec}',
                                                     maxLines: 2,
                                                     overflow:
                                                         TextOverflow.ellipsis,
-                                                    style: TextStyle(
-                                                      fontSize: 14.sp,
-                                                      color: Color(0xff555555),
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                      fontFamily: 'Tajawal',
-                                                    ),
-                                                  ),
+                                                    style:GoogleFonts.cairo(textStyle: TextStyle(fontSize: 14.sp,color: Color(0xff555555),fontWeight: FontWeight.w400)
+                                                  ),)
                                                 ],
                                               ),
                                             ),

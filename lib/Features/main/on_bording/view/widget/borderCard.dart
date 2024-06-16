@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import 'package:google_fonts/google_fonts.dart';
 
 
 import '../../model/list_on_bording.dart';
@@ -22,8 +22,8 @@ class  BorderCard extends StatelessWidget {
             height: 5.h,
           ),
 
-
-          SizedBox(height: 100.h,child: Text(BordingList[index].body)),
+10.verticalSpace,
+          SizedBox(height: 100.h,child: Text(BordingList[index].body,style:GoogleFonts.cairo(textStyle: TextStyle(fontSize: 16.sp,color: Colors.black,fontWeight: FontWeight.w700)))),
         ],
       ),
     );

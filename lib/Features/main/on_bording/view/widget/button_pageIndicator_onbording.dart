@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../../core/sharde/widget/default_button.dart';
 import '../onBordingScreesn.dart';
 
 class ButtonPageIndicatorOnBording extends StatelessWidget {
@@ -12,8 +13,10 @@ class ButtonPageIndicatorOnBording extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  InkWell(
-      onTap: (){
+    return  Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: DefaultButton(text:(isLast == true)? 'تجربه سعيده':'التالى',function: (){
+
         bordcontroll.nextPage(
           duration: const Duration(
             milliseconds: 750,
@@ -23,16 +26,7 @@ class ButtonPageIndicatorOnBording extends StatelessWidget {
         if (isLast == true) {
           submit();
         }
-      },
-      child:   Container(
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(25.0.r)
-        ),
-        height: 50.h,
-        width: 50.w,
-        child: Icon(Icons.arrow_forward_ios),
-      ),
-    );
+      }
+      ),);
   }
 }

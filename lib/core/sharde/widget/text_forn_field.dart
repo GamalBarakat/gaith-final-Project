@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
-class CustomTextFormField extends StatelessWidget {
+class CustomTextFormField extends StatefulWidget {
   final TextEditingController? controller;
   final TextInputType? textInputType;
   final String? hintText;
@@ -21,24 +21,34 @@ class CustomTextFormField extends StatelessWidget {
   }) ;
 
   @override
+  State<CustomTextFormField> createState() => _CustomTextFormFieldState();
+}
+
+class _CustomTextFormFieldState extends State<CustomTextFormField> {
+  @override
   Widget build(BuildContext context) {
     return
       Padding(
         padding: const EdgeInsets.all(8.0),
-        child: TextFormField(
-          controller: controller,
+        child:
+        TextFormField(
+          controller: widget.controller,
           decoration:  InputDecoration(
-            suffixIcon:subfix,
+            suffixIcon:widget.subfix,
 
             enabledBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.black,width: 1.2),
+              borderSide: BorderSide(color: Color(0xff999999),width: 1.2),
             ),
-            hintText: hintText,
-            hintStyle: const TextStyle(
+            hintText: widget.hintText,
+            hintStyle:  TextStyle(
 
-            color: Color(0xff555555),
+            color: Color(0xff222222),
 
-            fontFamily: 'Rajawali'),
+                fontWeight: FontWeight.bold,
+                fontSize: 16.sp,
+                fontFamily: 'Tajawal',
+
+           ),
 
             border: const OutlineInputBorder(
               borderSide: BorderSide(color: Colors.black, width: 50),
@@ -52,19 +62,19 @@ class CustomTextFormField extends StatelessWidget {
             ),
             focusedBorder: const OutlineInputBorder(
 
-              borderSide: BorderSide(color: Colors.green),
+              borderSide: BorderSide(color: Color(0xff095372)),
             ),
 
             contentPadding: const EdgeInsets.symmetric(vertical: 4.0,horizontal: 4.0),
 
 
-            prefixIcon: prefix,
+            prefixIcon: widget.prefix,
 
           ), // textInputAction: textInputAction,
-          keyboardType: textInputType,
+          keyboardType: widget.textInputType,
 
-          validator: validator,
-          obscureText: obscureText == null ? false : obscureText,
+          validator: widget.validator,
+          obscureText: widget.obscureText == null ? false : widget.obscureText,
         ),
       );
   }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gaith/core/sharde/widget/navigation.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../core/sharde/app_assets.dart';
 import '../../../../../core/sharde/widget/default_button.dart';
@@ -21,7 +22,16 @@ class PersonalNeedsPage extends StatelessWidget {
     return Scaffold(
 
       backgroundColor:const Color(0xffF4F6FE),
-      appBar:AppBar() ,
+      appBar: AppBar(
+
+
+        leading: IconButton(icon: Icon(Icons.arrow_back_ios_rounded),onPressed: (){
+          navigapop(context);
+        },)
+        ,
+
+        title:  Text('احتياج شخصى',style:GoogleFonts.cairo(textStyle: TextStyle(fontSize: 16.sp,color: Colors.black,fontWeight: FontWeight.w700)),),
+        centerTitle: true,),
       body:
 
       BlocProvider(

@@ -26,13 +26,13 @@ class DioHelper{
 
   static Future<Response>getData({required String url,Map<String,dynamic>? query})async
   {
-     dio.options.headers["Authorization"] = "Bearer ${uId}";
+     dio.options.headers["Authorization"] = "Bearer 20|YtE2JHSFWEpmRezjpZyIsXXRP1f7zGKRIQJ4caVl";
    return await dio.get(url,queryParameters: query);
   }
 
   static Future<Response>postData({required String url, dynamic data, String?token })async
   {
-     dio.options.headers["Authorization"] = "Bearer ${uId}";
+     dio.options.headers["Authorization"] = "Bearer 20|YtE2JHSFWEpmRezjpZyIsXXRP1f7zGKRIQJ4caVl";
     return   dio.post(url,data: data);
   }
 
