@@ -13,7 +13,11 @@ import '../../../../core/sharde/widget/default_button.dart';
 import '../../../../core/sharde/widget/navigation.dart';
 import '../donation_status_details.dart';
 import 'c.dart';
+List<String>categoryList=
+[
+  'الكل', 'ملابس','صحه','طعام','غارمين','التنميه','ذوى الاحتياجات الخاصه',
 
+];
 class HumanitarianCasesAllScreen extends StatelessWidget {
   const HumanitarianCasesAllScreen({super.key});
 
@@ -32,7 +36,9 @@ class HumanitarianCasesAllScreen extends StatelessWidget {
         title:  Text('الحالات الانسانيه',style:GoogleFonts.cairo(textStyle: TextStyle(fontSize: 16.sp,color: Colors.black,fontWeight: FontWeight.w700)),),
         centerTitle: true,),
         body: BlocProvider(
-          create: (context) => DonorViewCubit()..getHomeData(),
+          create: (context) => DonorViewCubit()..getHomeData()..getDonationsByCategory(
+              categoryId:
+              0),
           child: BlocConsumer<DonorViewCubit, DonorViewState>(
               listener: (context, state) {},
               builder: (context, state) {
@@ -74,21 +80,29 @@ class HumanitarianCasesAllScreen extends StatelessWidget {
                                     onTap: () {
                                       BlocProvider.of<DonorViewCubit>(context)
                                           .changeBottomItem(index: index);
-                                      BlocProvider.of<DonorViewCubit>(context)
-                                          .getDonationsByCategory(
+                                      if(index==0)
+                                      {
+                                        BlocProvider.of<DonorViewCubit>(context)
+                                            .getDonationsByCategory(
+                                            categoryId:0);
+
+                                      }
+                                      else
+                                        {
+                                          BlocProvider.of<DonorViewCubit>(context)
+                                              .getDonationsByCategory(
                                               categoryId:
-                                                  BlocProvider.of<DonorViewCubit>(
-                                                          context)
-                                                      .donorModel!
-                                                      .catigory![index]
-                                                      .id);
+                                              BlocProvider.of<DonorViewCubit>(
+                                                  context)
+                                                  .donorModel!
+                                                  .catigory![index-1]
+                                                  .id);
+                                        }
+
+
                                     },
                                     label:
-                                        BlocProvider.of<DonorViewCubit>(context)
-                                            .donorModel!
-                                            .catigory![index]
-                                            .nameAr
-                                            .toString(),
+                                    categoryList[index],
                                     isSelected: index ==
                                         BlocProvider.of<DonorViewCubit>(context)
                                             .currentItem,

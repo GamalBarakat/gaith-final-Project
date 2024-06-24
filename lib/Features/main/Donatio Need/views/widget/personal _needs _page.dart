@@ -1,7 +1,12 @@
+
+
+import 'dart:io';
+
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gaith/core/sharde/widget/navigation.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -39,39 +44,81 @@ class PersonalNeedsPage extends StatelessWidget {
         child: BlocConsumer<DonationNeedViewCubit,DonationNeedViewState>(
           listener: (context,state)
           {
-            if(state is RequestADonationForMeStateSuccess )
+            if (state is RequestADonationForMeStateSuccess) {
+              if(state.successMeModel2!.status==false)
               {
+
+                Fluttertoast.showToast(
+                    msg: '${state.successMeModel2!.message}',
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.BOTTOM,
+                    timeInSecForIosWeb: 1,
+                    backgroundColor: Colors.red,
+                    textColor: Colors.white,
+                    fontSize: 16.0);
+
+              }
+              else{
+
                 showDialog(
                   context: context,
-                  builder: (BuildContext context) {
-                    return Theme(
-                      data: Theme.of(context).copyWith(
-                        dialogBackgroundColor: Colors.white,
-                      ),
-                      child: AlertDialog(
-                        backgroundColor: Colors.white,
+                  builder: (_) => AlertDialog(
+                    backgroundColor: Colors.white,
 
-                        content: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            Image.asset(AppAssets.success, height: 100, width: 100), // إضافة صورة
-                            Text('تم تسجيل طلبك بنجاح '),
-                            Text('سيتم مراجعه طلبك والتواصل معك فى اقرب وقت ممكن '),
-                          ],
-                        ),
-                        actions: <Widget>[
-                          TextButton(
-                            onPressed: () {
-                           navigatofinsh(context, LayoutScreen(), false);
-                            },
-                            child: Text('العوده الى الصفحه الرئسيه'),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Image.asset(AppAssets.success),
+
+                        Text('${state.successMeModel2!.message}',  style: TextStyle(
+                          fontSize: 18.0,
+                          fontFamily: 'Ottoman',
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),),
+                        Text('تم تسجيل طلبك بنجاح',  style: TextStyle(
+                          fontSize: 18.0,
+                          fontFamily: 'Ottoman',
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),),
+                        Text('سيتم مراجعه طلبك والتواصل معك فى اقرب وقت ممكن ', style: TextStyle(
+                          fontSize: 18.0,
+                          fontFamily: 'Ottoman',
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),)
+                      ],
+                    ),
+
+
+                  ),
                 );
+
+
               }
+
+
+
+
+            }
+
+            if(state is RequestADonationForMeStateError)
+            {
+              ScaffoldMessenger.of(context).showSnackBar(
+
+                SnackBar(backgroundColor: Colors.red,content: Text('لم يتم تنفيذ التبرع حاول مره اخرى وتاكد من الانترنت')),
+              );
+            }
+
+
+
+
+
+
+
+
+
           },
           builder: (context,  state) {
 
@@ -80,8 +127,23 @@ class PersonalNeedsPage extends StatelessWidget {
               child: Column(
                 children: [
 
-
-       100.verticalSpace,
+                  if(BlocProvider.of<DonationNeedViewCubit>(context).donationPhoto!=null)
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        height: MediaQuery.of(context).size.height / 3,
+                        width: MediaQuery.of(context).size.width,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(16.0), // تعديل نسبة القطع حسب الحاجة
+                          child: Image.file(
+                            File(BlocProvider.of<DonationNeedViewCubit>(context).donationPhoto!.path),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                    ),
+                  if(BlocProvider.of<DonationNeedViewCubit>(context).donationPhoto==null)
+                    100.verticalSpace,
                   CustomTextFormField(hintText: 'نبذه عن احتياجك للتبرع ',
                     controller:descriptionController,
                     validator:(value) {
@@ -92,9 +154,7 @@ class PersonalNeedsPage extends StatelessWidget {
                       }
                     },
                     textInputType: TextInputType.text,),
-5.verticalSpace,
-
-
+                    5.verticalSpace,
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
 
@@ -115,11 +175,8 @@ class PersonalNeedsPage extends StatelessWidget {
                     ],
                   ),
 
-                  if(BlocProvider.of<DonationNeedViewCubit>(context).donationPhoto!=null)
-                    SizedBox(width: 200,height:200,child: InkWell(onTap: (){
 
-                      print(BlocProvider.of<DonationNeedViewCubit>(context).donationPhoto!);
-                    },child: Image.file(BlocProvider.of<DonationNeedViewCubit>(context).donationPhoto!,width: MediaQuery.of(context).size.width,))),
+
 
                   SizedBox(height: 20.h),
                   Padding(
@@ -128,17 +185,18 @@ class PersonalNeedsPage extends StatelessWidget {
                       condition:state is !RequestADonationForMeStateLoading,
 
                       builder: (context) =>DefaultButton(text: 'تأكيد',function: (){
-                        if (keyForm.currentState!.validate()&&BlocProvider.of<DonationNeedViewCubit>(context).donationPhoto!=null) {
+                        if (keyForm.currentState!.validate()) {
 
 
 
 
                           BlocProvider.of<DonationNeedViewCubit>(context).requestADonationForMe(
-image:BlocProvider.of<DonationNeedViewCubit>(context).donationPhoto!.path.toString() ,
-                            categoryId:'3' ,
+                            image:BlocProvider.of<DonationNeedViewCubit>(context).donationPhoto ,
+                            categoryId:'16' ,
                             description:descriptionController.text ,
                             details:descriptionController.text,
-                          //  imageUrl:BlocProvider.of<DonationNeedViewCubit>(context).donationPhoto!.path  ,
+
+
                             price: '0',  );
                         }
 

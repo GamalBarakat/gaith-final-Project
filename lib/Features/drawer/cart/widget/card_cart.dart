@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../core/sharde/app_assets.dart';
 import '../../../../core/sharde/widget/consts.dart';
@@ -7,17 +8,13 @@ class CardCart extends StatelessWidget {
   int idDonation;
   String image;
   int price;
-   CardCart({super.key,required this.idDonation,required this.image,required this.price});
+  String ?title;
+   CardCart({super.key,required this.idDonation,required this.image,required this.price,required this.title});
 
   @override
   Widget build(BuildContext context) {
     return
-      InkWell(
-      onTap: (){
-        print('Token');
-        print(uId);
-      },
-      child: Container(
+      Container(
 
         padding:EdgeInsets.all(5.0),
         decoration: BoxDecoration(
@@ -37,15 +34,21 @@ class CardCart extends StatelessWidget {
          crossAxisAlignment: CrossAxisAlignment.start,
 
                   children: [
-                Text('كسوه العيد') ,
-                    Text(price.toString()) ,
+                Text(title.toString(),style:GoogleFonts.cairo(textStyle: TextStyle(fontSize: 14.sp,color: Colors.black,fontWeight: FontWeight.w700))) ,
+                   5.verticalSpace,
+                    Row(
+                      children: [
+                        Text(price.toString(),style:GoogleFonts.cairo(textStyle: TextStyle(fontSize: 12.sp,color: Colors.black,fontWeight: FontWeight.w500))),
+                        5.horizontalSpace,
+                        Text('جنيه مصرى',style:GoogleFonts.cairo(textStyle: TextStyle(fontSize: 12.sp,color: Colors.black,fontWeight: FontWeight.w700))) ,
+                      ],
+                    ) ,
               ],),
 
             ),
 
           ],
         ),
-      ),
-    );
+      );
   }
 }

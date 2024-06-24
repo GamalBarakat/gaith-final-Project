@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'Features/Auth/login/screens/login_screen.dart';
+
+import 'Features/Auth/Login/Screens/login_screen.dart';
 import 'Features/main/layoutScreen.dart';
 import 'Features/main/splash_screen.dart';
 import 'core/sharde/blocObserver.dart';

@@ -22,6 +22,7 @@ class CartModel {
 }
 
 class Carts {
+  String?name;
   int? id;
   String? img;
   int? price;
@@ -29,6 +30,7 @@ class Carts {
   Carts({this.id, this.img, this.price});
 
   Carts.fromJson(Map<String, dynamic> json) {
+    name=json['name'];
     id = json['id'];
     img = json['img'];
     price = json['price'];

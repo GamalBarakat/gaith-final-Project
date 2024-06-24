@@ -5,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 
 import 'package:gaith/Features/main/payment/payment_screen.dart';
+import 'package:gaith/Features/main/payment/widget/payment_error_screen.dart';
+import 'package:gaith/Features/main/payment/widget/payment_scuccess_screen.dart';
 import 'package:gaith/core/sharde/app_assets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
@@ -12,7 +14,8 @@ import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import '../../core/sharde/widget/log_out.dart';
 import '../../core/sharde/widget/navigation.dart';
 
-import '../Auth/profile/screen/profile_view.dart';
+import '../Auth/profile/Screens/profile_view.dart';
+
 import '../drawer/cart/cart_screen.dart';
 import '../drawer/zakat/zakat_screen.dart';
 import 'home/feature/manager/home_cubite.dart';
@@ -46,7 +49,9 @@ class LayoutScreen extends StatelessWidget {
                 actions: [
                   IconButton(
                     icon: Icon(Icons.access_time_sharp),
-                    onPressed: () {},
+                    onPressed: () {
+                      navigato(context, PaymentScuccessScreen());
+                    },
                   ),
                 ],
                 leading: IconButton(
@@ -128,8 +133,8 @@ class LayoutScreen extends StatelessWidget {
                             ),
                           ),
                           onTap: () {
-                            navigato(context, PaymentScreenOne());
-                            // navigato(context, PaymentScreen());
+                            navigato(context, PaymentScreen());
+
                           },
                         ),
                         ListTile(
@@ -242,8 +247,8 @@ class LayoutScreen extends StatelessWidget {
                     selectedColor: Color(0xff22AAE4),
                   ),
                   SalomonBottomBarItem(
-                    icon: Icon(Icons.search),
-                    title: Text("التطوع"),
+                    icon: Icon(Icons.shopping_cart),
+                    title: Text("السله"),
                     selectedColor: Color(0xff22AAE4),
                   ),
                   SalomonBottomBarItem(

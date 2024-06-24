@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gaith/Features/main/Volunteer/cubit/volunteer_view_state.dart';
 import '../../../../core/sharde/dioHelper.dart';
 import '../model/volunteer_model.dart';
+import '../model/volunteer_success_model.dart';
 
 
 class VolunteerViewCubit extends Cubit<VolunteerViewState> {
@@ -22,7 +23,7 @@ class VolunteerViewCubit extends Cubit<VolunteerViewState> {
       emit(VolunteerViewStateError(error.toString()));
     });
   }
-
+  VolunteerSuccessModel? volunteerSuccessModel;
   void addVolunteer({
     required String name,required  String age,
     required String address,required String work,
@@ -41,9 +42,9 @@ class VolunteerViewCubit extends Cubit<VolunteerViewState> {
         .then((value) {
       print('Successs');
 
-
+      volunteerSuccessModel=VolunteerSuccessModel.fromJson(value.data);
       print(value.data);
-      emit(AddVolunteerViewStateSuccess());
+      emit(AddVolunteerViewStateSuccess(volunteerSuccessModel!));
     })
         .catchError((error) {
       print('Error     ${error.toString()}');

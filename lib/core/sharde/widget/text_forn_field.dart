@@ -43,9 +43,6 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             hintStyle:  TextStyle(
 
             color: Color(0xff222222),
-
-                fontWeight: FontWeight.bold,
-                fontSize: 16.sp,
                 fontFamily: 'Tajawal',
 
            ),
@@ -64,8 +61,8 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
 
               borderSide: BorderSide(color: Color(0xff095372)),
             ),
+            contentPadding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 12.0),
 
-            contentPadding: const EdgeInsets.symmetric(vertical: 4.0,horizontal: 4.0),
 
 
             prefixIcon: widget.prefix,

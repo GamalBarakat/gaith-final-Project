@@ -4,26 +4,24 @@ import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gaith/core/sharde/dioHelper.dart';
 import 'package:image_picker/image_picker.dart';
-
-import '../../../../core/sharde/widget/dialog.dart';
-import '../model/donation_need_model.dart';
+import '../../../../core/sharde/function/upload_image_to_api.dart';
+import '../model/success_another_personal_model.dart';
+import '../model/success_me_model.dart';
 import 'donation_need_state.dart';
 
 class DonationNeedViewCubit extends Cubit<DonationNeedViewState>{
   DonationNeedViewCubit():super(InitializeDonationNeedViewState());
 
-
+  SuccessMeModel?successMeModel;
   void requestADonationForMe ({required String categoryId,
     required String description ,
-    required String price , required String details, required String image })  async {
+    required String price , required String details,  dynamic image })  async {
 
 emit(RequestADonationForMeStateLoading());
 
 FormData formData = FormData.fromMap({
-  'files': [
-    await MultipartFile.fromFile('${image}', filename: 'gggg')
-  ],
-  'catigory_id': categoryId,
+  'img': (image==null)?null:await uploadImageToAPI(image),
+  'catigory_id': '16',
   'dec': description,
   'price': price,
   'des': details,
@@ -36,13 +34,15 @@ FormData formData = FormData.fromMap({
         .then((value){
 print(value.data);
 print(image);
-      emit(RequestADonationForMeStateSuccess());
+successMeModel=SuccessMeModel.fromJson(value.data);
+print(successMeModel!.message);
+      emit(RequestADonationForMeStateSuccess(successMeModel));
 
 
     }).catchError((error)
 
     {
-print('Error in cubit requestADonationForMe ${error.toString()} ');
+     print('Error in cubit requestADonationForMe ${error.toString()} ');
       emit(RequestADonationForMeStateError(error.toString()));
 
     }
@@ -50,7 +50,7 @@ print('Error in cubit requestADonationForMe ${error.toString()} ');
 
   }
 
-  File? donationPhoto;
+  XFile? donationPhoto;
   var pickerPhoto = ImagePicker();
 
   Future getProfileImageByCamera() async {
@@ -59,7 +59,7 @@ print('Error in cubit requestADonationForMe ${error.toString()} ');
       source: ImageSource.camera,
     );
     if (pickedFile != null) {
-      donationPhoto = File(pickedFile.path );
+      donationPhoto = XFile(pickedFile.path );
       emit(PhotoDonationSuccessState());
     } else {
       print('no image selected');
@@ -72,7 +72,7 @@ print('Error in cubit requestADonationForMe ${error.toString()} ');
       source: ImageSource.gallery,
     );
     if (pickedFile != null) {
-      donationPhoto = File(pickedFile.path );
+      donationPhoto = XFile(pickedFile.path );
       emit(PhotoDonationSuccessState());
     } else {
       print('no image selected');
@@ -80,7 +80,7 @@ print('Error in cubit requestADonationForMe ${error.toString()} ');
     }
   }
 
-
+  SuccessAnotherModel?successAnotherModel;
   Future<void> requestADonationToAnotherPerson ({
     required String  name,
     required String address,
@@ -88,30 +88,28 @@ print('Error in cubit requestADonationForMe ${error.toString()} ');
     required String categoryId,
     required String description ,
     required String price ,
-    required dynamic  imageUrl,
+    dynamic  imageUrl,
     required String details  }) async {
 
     emit(RequestADonationToAnotherPersonStateLoading());
     FormData formData = FormData.fromMap({
-      'files': [
-        await MultipartFile.fromFile('${imageUrl}', filename: '')
-      ],
-      'catigory_id': '3',
+
+      'img':(imageUrl==null)?null:await uploadImageToAPI(imageUrl),
+      'catigory_id': '14',
       'dec': description,
       'price': price,
       'des': description,
       'name':name,
       'address':address,
       'phone':phone,
-      'img': '/data/user/0/com.example.gaith/cache/f1d454a9-e85e-46d6-ae60-db9ccf254b71/IMG-20210305-WA0005.jpg',
-
     });
     DioHelper.postData(url:'need_donation_you',data:formData)
 
         .then((value){
 print(value.data);
 print(imageUrl);
-      emit(RequestADonationToAnotherPersonStateSuccess());
+successAnotherModel=SuccessAnotherModel.fromJson(value.data);
+      emit(RequestADonationToAnotherPersonStateSuccess(successAnotherModel));
 
 
     }).catchError((error)

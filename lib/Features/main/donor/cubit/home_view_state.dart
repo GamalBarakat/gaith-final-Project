@@ -1,3 +1,7 @@
+import 'package:gaith/Features/main/Donatio%20Need/model/success_me_model.dart';
+
+import '../../../../core/sharde/model/success_model.dart';
+
 abstract class DonorViewState {}
 
 class InitializeDonorViewState extends DonorViewState {}
@@ -54,7 +58,14 @@ class DonationsByCategoryStateError extends DonorViewState {
   DonationsByCategoryStateError(this.error);
 }
 
+class DonationsAllStateLoading extends DonorViewState {}
 
+class DonationsAllStateSuccess extends DonorViewState {}
+
+class DonationsAllStateError extends DonorViewState {
+  final String error;
+  DonationsAllStateError(this.error);
+}
 
 
 
@@ -95,3 +106,23 @@ class deleteItemCartStateError extends DonorViewState {
   final String error;
   deleteItemCartStateError(this.error);
 }
+
+
+
+
+class AddDonationStateLoading extends DonorViewState {}
+
+class AddDonationStateSuccess extends DonorViewState {
+  SuccessModel? successModel;
+  AddDonationStateSuccess(this.successModel);
+}
+
+class AddDonationStateError extends DonorViewState {}
+
+
+
+
+
+class PhotoAddPickerDonationLoadingState extends DonorViewState {}
+class PhotoAddPickerDonationSuccessState extends DonorViewState {}
+class PhotoAddPickerDonationErrorState extends DonorViewState {}

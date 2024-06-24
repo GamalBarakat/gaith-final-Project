@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../../../core/sharde/app_assets.dart';
 import '../../../../core/sharde/widget/navigation.dart';
 class PaymentErrorScreen extends StatelessWidget {
   @override
@@ -27,7 +28,9 @@ class PaymentErrorScreen extends StatelessWidget {
         children: [
 
 
-          Center(child: Lottie.asset(width: 100.w,height: 200.h, 'assets/images/errorLot.json',)),
+          Center(child:
+          Image.asset(AppAssets.error,width: 100.w,height: 200.h,),
+       ),
           20.verticalSpace,
           Column(
             children: [

@@ -3,6 +3,8 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/sharde/widget/default_button.dart';
+import '../../../../core/sharde/widget/navigation.dart';
+import '../../payment/payment_screen.dart';
 import '../model/shares_model.dart';
 class ComponentSharesInHome extends StatelessWidget {
 
@@ -96,7 +98,7 @@ class ComponentSharesInHome extends StatelessWidget {
                     ),
                     DefaultButton(function: (){
 
-                      print('Go navigation Payment Methodde');
+                      navigato(context, PaymentScreen(donation_id:shareModelInHome!.shares![index].id! ,price:shareModelInHome!.shares![index].price ,));
                     },text: 'تبرع',),
                   ],
                 ),

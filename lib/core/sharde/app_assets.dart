@@ -8,7 +8,7 @@ class AppAssets {
 
   static const String success = 'assets/images/success.png';
 
-
+  static const String error = 'assets/images/error.png';
   static const String open_hand = 'assets/images/open_hand.png';
   static const String location_icon= 'assets/images/location_icon.png';
 
@@ -23,5 +23,11 @@ class AppAssets {
 
 
 
+  static const String colthes = 'assets/images/colthes.png';
+  static const String develo= 'assets/images/develo.png';
+  static const String disabled= 'assets/images/disabled.png';
+  static const String food2= 'assets/images/food.png';
+  static const String garmin= 'assets/images/garmin.png';
+  static const String  health= 'assets/images/health.png';
 
 }

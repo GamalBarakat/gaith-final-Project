@@ -1,8 +1,15 @@
+import 'package:dio/dio.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:gaith/core/sharde/app_assets.dart';
+import 'package:gaith/Features/main/Donatio%20Need/model/success_me_model.dart';
+import 'package:image_picker/image_picker.dart';
 import '../../../../core/sharde/dioHelper.dart';
+import '../../../../core/sharde/function/upload_image_to_api.dart';
+import '../../../../core/sharde/model/success_model.dart';
 import '../model/cart_model.dart';
 import '../model/details_model/details_model.dart';
 import '../model/home_model.dart';
@@ -139,7 +146,7 @@ cartModel=CartModel.fromJson(value.data);
     emit(deleteItemCartStateLoading());
     DioHelper.getData(url: 'delete_cart/${donationId}')
         .then((value) {
-
+      emit(deleteItemCartStateSuccess());
 
       print(value.data);
       emit(deleteItemCartStateSuccess());
@@ -150,5 +157,94 @@ cartModel=CartModel.fromJson(value.data);
     });
 
   }
+
+  XFile? addDonationPhoto;
+  var pickerPhoto = ImagePicker();
+
+  Future getProfileImageByCamera() async {
+    emit(PhotoAddPickerDonationLoadingState());
+    final pickedFile = await pickerPhoto.pickImage(
+      source: ImageSource.camera,
+    );
+    if (pickedFile != null) {
+      addDonationPhoto = XFile(pickedFile.path );
+      emit(PhotoAddPickerDonationSuccessState());
+    } else {
+      print('no image selected');
+      emit(PhotoAddPickerDonationErrorState());
+    }
+  }
+  Future getProfileImageByGallery() async {
+    emit(PhotoAddPickerDonationLoadingState());
+    final pickedFile = await pickerPhoto.pickImage(
+      source: ImageSource.gallery,
+    );
+    if (pickedFile != null) {
+      addDonationPhoto = XFile(pickedFile.path );
+      emit(PhotoAddPickerDonationSuccessState());
+    } else {
+      print('no image selected');
+      emit(PhotoAddPickerDonationErrorState());
+    }
+  }
+  SuccessModel?successModel;
+  Future<void> AddDonation({
+  required String catigory_id,
+  required String name,
+  required String phone,
+  required String address,
+  required String des,
+   required dynamic context,
+   dynamic image ,
+
+
+  }) async {
+  emit(AddDonationStateLoading());
+  FormData formData = FormData.fromMap({
+
+    'img': (image==null)?null:await uploadImageToAPI(image??null),
+    'catigory_id': catigory_id,
+    'name': name,
+    'phone': phone,
+    'address': address,
+    'dec': des,
+    'price': '0',
+    'des': des
+  });
+    DioHelper.postData(url: 'add_donations_new', data:formData ).then((value) {
+      print(value.data);
+
+
+      successModel=SuccessModel.fromJson(value.data);
+      emit(AddDonationStateSuccess(successModel!));
+    }).catchError((error) {
+
+      print('Error');
+print(error.toString());
+    emit(AddDonationStateError());
+    });
+  }
+
+  // DonorModel?donorModelAll;
+  // void getDonationsStayAll(){
+  //
+  //   emit(DonationsAllStateLoading());
+  //   DioHelper.getData(url: 'get_donations_by_catigory/$categoryId')
+  //       .then((value) {
+  //
+  //     donorByCategoryIdModel=DonorModel.fromJson(value.data);
+  //     print(donorByCategoryIdModel!.message);
+  //     print(value.data);
+  //     emit(DonationsAllStateSuccess());
+  //   })
+  //       .catchError((error) {
+  //     print('Error     ${error.toString()}');
+  //     emit(DonationsAllStateError(error.toString()));
+  //   });
+  // }
+
+
+
+
 
 }

@@ -1,15 +1,17 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gaith/core/sharde/widget/navigation.dart';
 import 'package:shimmer/shimmer.dart';
-
+import 'dart:io';
 import '../../../../core/sharde/app_assets.dart';
 import '../../../../core/sharde/widget/default_button.dart';
 import '../../../../core/sharde/widget/text_forn_field.dart';
 import '../../home/feature/manager/home_cubite.dart';
-import '../../home/feature/manager/home_view__state.dart';
+
 import '../cubit/home_view_cubit.dart';
 import '../cubit/home_view_state.dart';
 class OtherDonationsListView extends StatelessWidget {
@@ -36,7 +38,7 @@ class OtherDonationsListView extends StatelessWidget {
               physics: const BouncingScrollPhysics(),
               itemBuilder:(context,index)=> InkWell(
                 onTap: (){
-                  navigato(context,  DonationDetails());
+                  // navigato(context,  DonationDetails());
                 },
                 child: Column(
                   children: [
@@ -72,17 +74,19 @@ class OtherDonationsListView extends StatelessWidget {
             :
           SizedBox(
           height: 100.h,
+
           width: MediaQuery.of(context).size.width,
           child: ListView.separated(
               scrollDirection: Axis.horizontal,
               physics: const BouncingScrollPhysics(),
               itemBuilder:(context,index)=> InkWell(
                 onTap: (){
-                  navigato(context,  DonationDetails());
+                  navigato(context,  DonationDetails(index: index,));
                 },
                 child: Column(
                   children: [
                     Material(
+
                       color: Colors.white,
                       elevation:1.0,
                       borderRadius: BorderRadius.circular(8.0),
@@ -107,6 +111,7 @@ class OtherDonationsListView extends StatelessWidget {
 
 
                     ),
+                      maxLines: 2,
                   )
                   ],
                 ),
@@ -123,9 +128,42 @@ class OtherDonationsListView extends StatelessWidget {
   }
 }
 
-class DonationDetails extends StatelessWidget {
+List<Map<String,dynamic>>DonationDetailslist=[
+  {
+    'image':AppAssets.colthes,
+    'text':'ملابس',
+    'dec_text':'تبرع بالملابس اليوم وساهم في إضفاء الدفء والراحة على حياة شخص محتاج.'
+  },
+  {
+    'image':AppAssets.health,
+    'text':'صحه',
+    'dec_text':'مساعدات الأدوية تصل إلى المرضى بشكل دائم وثابت شهريًا، وذلك تأكيدًا لأهمية الجهود التطوعية وتبرع الأفراد بالأدوية الزائدة على حاجاتهم'
+  }, {
+    'image':AppAssets.food,
+    'text':'طعام',
+    'dec_text':'أن خير الناس من يقوم بإطعام الطعام: قال رسول الله صلى الله عليه وسلم: «خِيَارُكُمْ مَنْ أَطْعَمَ الطَّعَامَ'
+  }, {
+    'image':AppAssets.garmin,
+    'text':'غارمين',
+    'dec_text':'شارك معانا دلوقتى عشان نقدر نفك كرب كل غارم وغارمة ويرجعوا لحضن أولادهم'
+  }, {
+    'image':AppAssets.develo,
+    'text':'تنميه',
+    'dec_text':'تبرعك ليس مجرد مساهمة مالية ، بل هو بذرة لتغيير العالم'
+  },
+  {
+    'image':AppAssets.disabled,
+    'text':'ذوى الهمم',
+    'dec_text':'مدوا يد العون وابنوا جسور الأمل والتضامن'
+  },
 
-   DonationDetails({super.key});
+
+];
+
+class DonationDetails extends StatelessWidget {
+final  int index;
+
+   DonationDetails({super.key,required this.index});
    var nameController=TextEditingController();
    var phoneController=TextEditingController();
    var addressController=TextEditingController();
@@ -136,12 +174,85 @@ class DonationDetails extends StatelessWidget {
     return
 
       BlocProvider(
-        create: (context) => HomeViewCubit(),
+        create: (context) => DonorViewCubit(),
 
-        child: BlocConsumer<HomeViewCubit, HomeViewState>(
-          listener: (context, state) {},
+        child: BlocConsumer<DonorViewCubit, DonorViewState>(
+          listener: (context, state) {
+
+
+            if (state is AddDonationStateSuccess) {
+              print('GAmmmm');
+              print(state.successModel!.status);
+              print(state.successModel!.status.runtimeType);
+              print('ddddddddddddddd');
+              if(state.successModel!.status==1){
+
+                showDialog(
+                  context: context,
+                  builder: (_) => AlertDialog(
+                    backgroundColor: Colors.white,
+
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Image.asset(AppAssets.success),
+
+                        Text('${state.successModel!.message}',  style: TextStyle(
+                          fontSize: 18.0,
+                          fontFamily: 'Ottoman',
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),),
+                        Text('شكر على تبرعك معانا ',  style: TextStyle(
+                          fontSize: 18.0,
+                          fontFamily: 'Ottoman',
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),),
+                        Text('سيتم ارسال مندوب لك للاستلام تبرعك', style: TextStyle(
+                          fontSize: 18.0,
+                          fontFamily: 'Ottoman',
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),)
+                      ],
+                    ),
+
+
+                  ),
+                );
+
+
+              }
+              if(state.successModel!.status!=1)
+              {
+
+                Fluttertoast.showToast(
+                    msg: '${state.successModel!.message}',
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.BOTTOM,
+                    timeInSecForIosWeb: 1,
+                    backgroundColor: Colors.red,
+                    textColor: Colors.white,
+                    fontSize: 16.0);
+              }
+
+            }
+
+            if(state is AddDonationStateError)
+              {
+                ScaffoldMessenger.of(context).showSnackBar(
+
+                  SnackBar(backgroundColor: Colors.red,content: Text('لم يتم تنفيذ التبرع حاول مره اخرى وتاكد من الانترنت')),
+                );
+              }
+
+
+
+          },
           builder: (context, state){
             return Scaffold(
+              backgroundColor: Color(0xffF8FFFF),
               resizeToAvoidBottomInset: true,
               body:
               SafeArea(
@@ -156,10 +267,10 @@ class DonationDetails extends StatelessWidget {
                           clipBehavior: Clip.none,
 
                           children: [
-                            Image.asset( 'assets/images/banar1.png',width: MediaQuery.of(context).size.width,fit: BoxFit.fill,),
+                            Image.asset( DonationDetailslist[index]['image'],width: MediaQuery.of(context).size.width,fit: BoxFit.fill,),
                             Positioned(
 
-                                bottom: -50,
+                                bottom: -30,
                                 left: 8,
                                 right: 8,
                                 child:
@@ -169,7 +280,7 @@ class DonationDetails extends StatelessWidget {
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(5),
                                     border: Border.all(
-                                      color: Colors.grey,
+                                      color: Color(0xff22AAE4),
                                       width: 1,
                                     ),
 
@@ -181,13 +292,13 @@ class DonationDetails extends StatelessWidget {
                                     crossAxisAlignment:CrossAxisAlignment.start,
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      Text('الصجه', style: TextStyle(
+                                      Text(DonationDetailslist[index]['text'], style: TextStyle(
                                         fontSize: 14.sp,
                                         fontWeight: FontWeight.w700,
 
                                         fontFamily: 'Tajawal',
                                       ),),
-                                      Text('تطوير المنظومه الصحيه لعلاج ومكافحه الامراض الاكثر انتشارا فى المجتمع المصرى ',style: TextStyle(  fontSize: 12.sp,
+                                      Text(DonationDetailslist[index]['dec_text'],style: TextStyle(  fontSize: 12.sp,
                                         fontWeight: FontWeight.w400,
                                         color: Color(0xff555555),
 
@@ -203,7 +314,21 @@ class DonationDetails extends StatelessWidget {
                         ),
 
                         SizedBox(height: 50.h,),
-
+                        if(BlocProvider.of<DonorViewCubit>(context).addDonationPhoto!=null)
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              height: MediaQuery.of(context).size.height / 3,
+                              width: MediaQuery.of(context).size.width,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(16.0), // تعديل نسبة القطع حسب الحاجة
+                                child: Image.file(
+                                  File(BlocProvider.of<DonorViewCubit>(context).addDonationPhoto!.path),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                          ),
                         CustomTextFormField(hintText: 'الإسم',
                           controller:nameController,
                           validator:(value) {
@@ -250,24 +375,53 @@ class DonationDetails extends StatelessWidget {
                           children: [
                             InkWell(onTap:(){
 
-                              BlocProvider.of<HomeViewCubit>(context).getProfileImageByCamera();
+                              BlocProvider.of<DonorViewCubit>(context).getProfileImageByCamera();
                             } ,child: Icon(Icons.camera_alt,color: Color(0xff529C9C),)),
                             InkWell(onTap:(){
 
-                              BlocProvider.of<HomeViewCubit>(context).getProfileImageByGallery();
+                              BlocProvider.of<DonorViewCubit>(context).getProfileImageByGallery();
                             } ,child: Image.asset(AppAssets.Attachphoto)),
 
 
                           ],
                         ),
-                         if(BlocProvider.of<HomeViewCubit>(context).donationPhoto!=null)
-                        SizedBox(width: 200,child: Image.file(BlocProvider.of<HomeViewCubit>(context).donationPhoto!,width: MediaQuery.of(context).size.width,)),
 
                       SizedBox(height: 20.h),
+
                         Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: DefaultButton(function: (){},text: 'تبرع',),
-                        )
+                          padding: const EdgeInsets.all(10.0),
+                          child: ConditionalBuilder(
+                            condition: !(BlocProvider.of<DonorViewCubit>(context).state
+                            is AddDonationStateLoading),
+                            builder: (context) => DefaultButton(
+                              text: 'تبرع',
+                              function: () {
+                                if (keyForm.currentState!.validate()) {
+                                  BlocProvider.of<DonorViewCubit>(context).AddDonation(
+                                    image: BlocProvider.of<DonorViewCubit>(context).addDonationPhoto,
+                                    context: context,
+                                 address: addressController.text,
+                                    name: nameController.text,
+                                    catigory_id: '14',
+                                    des: descriptionController.text,
+                                    phone: phoneController.text
+
+
+                                  );
+                                }
+                              },
+                            ),
+                            fallback: (context) => const Center(
+                              child: CircularProgressIndicator(
+                                strokeWidth: 5.0,
+                                backgroundColor: Colors.black,
+                                color: Colors.blue,
+                                semanticsLabel: 'Linear progress indicator',
+                              ),
+                            ),
+                          ),
+                        ),
+
 
                       ],
                     ),

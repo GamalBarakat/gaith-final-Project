@@ -12,6 +12,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../core/sharde/widget/default_button.dart';
 import '../../../core/sharde/widget/navigation.dart';
 import '../../../core/sharde/widget/text_forn_field.dart';
+import '../../main/payment/payment_screen.dart';
 List<Map<String,dynamic>> d=[{
   'name':"مال",
   'image':AppAssets.money,
@@ -188,7 +189,7 @@ class ZakatAlMaal extends StatelessWidget {
 40.verticalSpace,
               if(BlocProvider.of<ZakatViewCubit>(context).AmountZakat!=null&&BlocProvider.of<ZakatViewCubit>(context).AmountZakat>0)
                 DefaultButton(text:'تبرع بمقدار زكاتك ', function: (){
-
+                  navigato(context, PaymentScreen(donation_id:2 ,price:BlocProvider.of<ZakatViewCubit>(context).AmountZakat ,));
                 }),
             ],
           )
@@ -272,7 +273,7 @@ class ZakatOfGold extends StatelessWidget {
 40.verticalSpace,
              if(BlocProvider.of<ZakatViewCubit>(context).AmountGoald!=null&&BlocProvider.of<ZakatViewCubit>(context).AmountGoald!>0)
               DefaultButton(text:'تبرع بمقدار زكاتك ', function: (){
-                BlocProvider.of<ZakatViewCubit>(context).ClcZakatGoald(amountGram:num.parse(amountGramController.text) ,numberOfGram: num.parse(numberOfGramController.text));
+                navigato(context, PaymentScreen(donation_id:2 ,price:BlocProvider.of<ZakatViewCubit>(context).AmountGoald ,));
               }),
             ],
           )

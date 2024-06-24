@@ -14,6 +14,7 @@ import '../../../core/sharde/app_assets.dart';
 import '../../../core/sharde/app_colors.dart';
 import '../../../core/sharde/widget/default_button.dart';
 import '../../../core/sharde/widget/navigation.dart';
+import '../payment/payment_screen.dart';
 import 'cubit/home_view_cubit.dart';
 import 'cubit/home_view_state.dart';
 import 'package:flutter/material.dart';
@@ -101,7 +102,7 @@ class DonationStatusDetails extends StatelessWidget {
 
                           Row(
                             children: [
-                              Icon(FeatherIcons.phone,color: Colors.amber,),
+                              Icon(FeatherIcons.phone,color: Color(0xff22AAE4),),
                               5.horizontalSpace,
                               Text('${BlocProvider.of<DonorViewCubit>(context).detailsModel!.donation!.phone}', style:GoogleFonts.cairo(textStyle: TextStyle(fontSize: 14.sp,color: Colors.black,fontWeight: FontWeight.w600)
                               ))
@@ -110,7 +111,7 @@ class DonationStatusDetails extends StatelessWidget {
                           5.verticalSpace,
                           Row(
                             children: [
-                              Icon(FeatherIcons.map,color: Colors.amber,),
+                              Icon(FeatherIcons.map,color: Color(0xff22AAE4),),
                               5.horizontalSpace,
                               Text('${BlocProvider.of<DonorViewCubit>(context).detailsModel!.donation!.address}',
                                   style:GoogleFonts.cairo(textStyle: TextStyle(fontSize: 14.sp,color: Colors.black,fontWeight: FontWeight.w600)
@@ -132,14 +133,17 @@ class DonationStatusDetails extends StatelessWidget {
                                       maxSteps: int.parse( '${BlocProvider.of<DonorViewCubit>(context).detailsModel!.donation!.price}'),
                                       progressType: LinearProgressBar.progressTypeLinear,
                                       currentStep:int.parse( '${BlocProvider.of<DonorViewCubit>(context).detailsModel!.donation!.pay}'),
-                                      progressColor: Colors.amber,
+                                      progressColor:Color(0xff22AAE4),
                                       backgroundColor: Colors.black,
 
                                       minHeight: 15.h,
 
                                     ),
                                   ),
-                                  Card(elevation:2,child: Container(width: 50.w,height:18.h,decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color: Colors.amber),child: Center(child: Text('${(100/1000)*100}%',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),))))
+                                  Card(elevation:2,child: Container(width: 50.w,height:18.h,decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color: Color(0xff22AAE4)),child: Center(child:
+                                  Text('${(int.parse('${BlocProvider.of<DonorViewCubit>(context).detailsModel!.donation!.pay}')/int.parse('${BlocProvider.of<DonorViewCubit>(context).detailsModel!.donation!.price}')
+                                  )*100}%',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),))
+                                  ))
                                 ],
                               ),
                               Padding(
@@ -184,27 +188,30 @@ class DonationStatusDetails extends StatelessWidget {
                         Expanded(
                           flex: 3,
                           child: DefaultButton(text: 'مساعده الحاله',function: (){
-                          
+                            navigato(context, PaymentScreen(donation_id:BlocProvider.of<DonorViewCubit>(context).detailsModel!.donation!.id ,));
                             },),
                         ),
                         5.horizontalSpace,
                         Expanded(
-                          flex: 1,
-                          child:  Container(
-                            decoration: BoxDecoration(
-                              color:  AppColors.buttonColor,
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            width: double.infinity,
-                            height: 40.h,
+                            flex: 1,
+                            child:  Container(
+                              decoration: BoxDecoration(
+                                color:  Colors.white,
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                              width: double.infinity,
+                              height: 40.h,
 
-                            child: MaterialButton(
-                              onPressed:(){},
-                              child:
-                              Icon(Icons.satellite, color: Colors.white,)
+                              child: MaterialButton(
+                                  onPressed:(){
 
-                            ),
-                          )
+                                    BlocProvider.of<DonorViewCubit>(context).addCart(donationId: BlocProvider.of<DonorViewCubit>(context).detailsModel!.donation!.id! );
+                                  },
+                                  child:
+                                  Icon(Icons.add_shopping_cart, color: Color(0xff22AAE4),size: 25,)
+
+                              ),
+                            )
                         ),
                       ],
                     ),

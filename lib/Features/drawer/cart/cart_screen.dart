@@ -11,63 +11,147 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../core/sharde/widget/navigation.dart';
 import '../../main/donor/cubit/home_view_cubit.dart';
 import '../../main/donor/cubit/home_view_state.dart';
+import '../../main/payment/payment_screen.dart';
 
-class CartScreen extends StatelessWidget {
+class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
 
   @override
+  State<CartScreen> createState() => _CartScreenState();
+}
+
+class _CartScreenState extends State<CartScreen> {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color(0xffF4F6FE),
-        appBar: AppBar(
+      backgroundColor: Color(0xffF4F6FE),
 
+      body: BlocProvider(
+          create: (context) => DonorViewCubit()..getCartAll(),
+          child: BlocConsumer<DonorViewCubit, DonorViewState>(
+            listener: (context, state) {},
+            builder: (context, state) {
+              return Center(
+                child: BlocProvider.of<DonorViewCubit>(context).cartModel ==
+                        null
+                    ? CircularProgressIndicator()
+                    : Stack(
+                  alignment: Alignment.bottomLeft,
+                      children: [
+                        ListView.builder(
+                            physics: BouncingScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              final item = BlocProvider.of<DonorViewCubit>(context)
+                                  .cartModel!
+                                  .carts![index];
+                              return Dismissible(
+                                key: Key(item.id.toString()),
+                                direction: DismissDirection.endToStart,
+                                background: Container(
+                                  color: Colors.red,
+                                  alignment: Alignment.centerLeft,
+                                  padding: EdgeInsets.symmetric(horizontal: 20),
+                                  child: Text(
+                                    'حذف',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                                onDismissed: (direction) {
+                                  setState(() {
+                                    BlocProvider.of<DonorViewCubit>(context)
+                                        .cartModel!
+                                        .carts!
+                                        .removeAt(index);
+                                  });
 
-          leading: IconButton(icon: Icon(Icons.arrow_back_ios_rounded),onPressed: (){
-            navigapop(context);
-          },)
-          ,
+                                  BlocProvider.of<DonorViewCubit>(context)
+                                      .deleteItemInCart(donationId: item.id!);
 
-          title:  Text('السله',style:GoogleFonts.cairo(textStyle: TextStyle(fontSize: 16.sp,color: Colors.black,fontWeight: FontWeight.w700)),),
-          centerTitle: true,),
-        body:
-        BlocProvider(
-            create: (context) => DonorViewCubit()..getCartAll(),
-            child: BlocConsumer<DonorViewCubit, DonorViewState>(
-                listener: (context, state) {},
-                builder: (context, state) {
-                  return Center(
-                    child: BlocProvider.of<DonorViewCubit>(context).cartModel ==
-                            null
-                        ? CircularProgressIndicator()
-                        : ListView.builder(
-                      physics: BouncingScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        final item = BlocProvider.of<DonorViewCubit>(context).cartModel!.carts![index];
-                        return DismissibleTile(
-                          ltrBackground: const ColoredBox(color: Colors.yellowAccent),
-                          key: Key(item.toString()),
-                            padding:EdgeInsets.all(5.0),
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text('تم الحذف')),
+                                  );
+                                },
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 2, horizontal: 4),
+                                  child: CardCart(
+                                    title: item.name,
+                                    idDonation: item.id!,
+                                    image: item.img!,
+                                    price: item.price!,
+                                  ),
+                                ),
+                              );
+                            },
+                            itemCount: BlocProvider.of<DonorViewCubit>(context)
+                                .cartModel!
+                                .carts!
+                                .length,
+                          ),
 
-                          onDismissed: (direction) {
-                            BlocProvider.of<DonorViewCubit>(context).deleteItemInCart(donationId: item.id!);
+                        InkWell(
+                          onTap: (){
 
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text('${item.price} dismissed')),
-                            );
+                            navigato(context, PaymentScreen(price: BlocProvider.of<DonorViewCubit>(context).cartModel!.total,));
                           },
                           child: Padding(
-                            padding: EdgeInsets.symmetric(vertical: 2, horizontal: 4),
-                            child: CardCart(
-                              idDonation: item.id!,
-                              image: item.img!,
-                              price: item.price!,
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              height:60,
+                              decoration: BoxDecoration(
+                                  color: Color(0xff22AAE4),
+                                borderRadius: BorderRadius.circular(10)
+                              ),
+                              padding: EdgeInsets.all(5),
+                              width: MediaQuery.of(context).size.width,
+
+                              child: Column(
+
+                                children: [
+                                  Text('اجمالى مبلغ السله',
+                                    style:  TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 14.sp,
+                                      fontFamily: 'Tajawal',
+
+
+                                    ),),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(' ${BlocProvider.of<DonorViewCubit>(context).cartModel!.total}',
+                                        style:  TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 14.sp,
+                                          fontFamily: 'Tajawal',
+
+
+                                        ),),
+                                      Text('تبرع بالمبلغ',
+                                        style:  TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 14.sp,
+                                          fontFamily: 'Tajawal',
+
+
+                                        ),),
+
+
+                                    ],
+                                  )
+                                ],
+                              ),
                             ),
                           ),
-                        );
-                            },
-                            itemCount:BlocProvider.of<DonorViewCubit>(context).cartModel!.carts!.length,
-                          ),
-                  );
-                })));
+                        )
+                      ],
+                    ),
+              );
+            },
+          )),
+    );
   }
 }

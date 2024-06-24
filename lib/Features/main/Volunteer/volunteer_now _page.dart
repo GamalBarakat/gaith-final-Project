@@ -41,33 +41,38 @@ class VolunteerNowPage extends StatelessWidget {
     {
 
       if (state is AddVolunteerViewStateSuccess) {
+        if(state.volunteerSuccessModel!.status==false)
+          {
 
-        Fluttertoast.showToast(
-            msg: 'تم تسجيل بيانتك بنجاح',
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 1,
-            backgroundColor: Colors.green,
-            textColor: Colors.white,
-            fontSize: 16.0);
-      //  navigatofinsh(context, LayoutScreen(), false);
-        } else {
+            Fluttertoast.showToast(
+                msg: '${state.volunteerSuccessModel!.message}',
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.BOTTOM,
+                timeInSecForIosWeb: 1,
+                backgroundColor: Colors.red,
+                textColor: Colors.white,
+                fontSize: 16.0);
+
+          }
+        else{
+          Fluttertoast.showToast(
+              msg: '${state.volunteerSuccessModel!.message}',
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.green,
+              textColor: Colors.white,
+              fontSize: 16.0);
+          navigapop(context);
+
+        }
 
 
-        Fluttertoast.showToast(
-            msg: 'خطاء فى عمليه التسجيل حاول مره اخرى',
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 2,
-            backgroundColor: Colors.red,
-            textColor: Colors.white,
-            fontSize: 16.0);
 
 
+        }
 
 
-
-      }
     },
     builder:(context,state)
     {
@@ -128,7 +133,7 @@ class VolunteerNowPage extends StatelessWidget {
                   child: ConditionalBuilder(
                     condition:state is !AddVolunteerViewStateLoading,
             
-                    builder: (context) =>DefaultButton(text: 'تسجيل الدخول',function: (){
+                    builder: (context) =>DefaultButton(text: 'تطوع',function: (){
                       if (keyForm.currentState!.validate()) {
                         BlocProvider.of<VolunteerViewCubit>(context).addVolunteer(
             name: nameController.text,
