@@ -41,7 +41,11 @@ dependencies:
   shared_preferences: ^2.0.18
   smooth_page_indicator: ^1.0.1
   image_picker: ^1.1.1
+<<<<<<< HEAD
   carousel_slider: ^5.0.0
+=======
+  carousel_slider: ^4.0.0
+>>>>>>> 5849cb87e5f0009a6cc13833ce748b2e724e9f75
   wave_linear_progress_indicator: ^0.1.0
   linear_progress_bar: "^1.1.1"
   marquee: ^2.2.3
@@ -50,7 +54,11 @@ dependencies:
   flutter_feather_icons: ^2.0.0+1
   myfatoorah_flutter: ^3.0.13
   lottie: ^2.1.0
+<<<<<<< HEAD
   win32: ^5.7.0
+=======
+
+>>>>>>> 5849cb87e5f0009a6cc13833ce748b2e724e9f75
 
 
 
