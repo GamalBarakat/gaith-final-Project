@@ -8,6 +8,7 @@ class AppAssets {
 
   static const String success = 'assets/images/success.png';
 
+  static const String logo3 = 'assets/images/logo3.png';
   static const String error = 'assets/images/error.png';
   static const String open_hand = 'assets/images/open_hand.png';
   static const String location_icon= 'assets/images/location_icon.png';

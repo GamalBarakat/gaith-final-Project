@@ -149,7 +149,10 @@ cartModel=CartModel.fromJson(value.data);
       emit(deleteItemCartStateSuccess());
 
       print(value.data);
+
       emit(deleteItemCartStateSuccess());
+      getHomeData();
+      getHomeData();
     })
         .catchError((error) {
       print('Error     ${error.toString()}');

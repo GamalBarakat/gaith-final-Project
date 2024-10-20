@@ -18,7 +18,7 @@ import '../../../Donate Quickly/favorite_page.dart';
 import '../../../Donatio Need/views/donation_need.dart';
 import '../../../Volunteer/volunteer.dart';
 import '../../../donor/donor.dart';
-import '../../../wallet/wallet_page.dart';
+
 import 'home_view__state.dart';
 
 class HomeViewCubit extends Cubit<HomeViewState> {
@@ -30,21 +30,14 @@ class HomeViewCubit extends Cubit<HomeViewState> {
     emit(LayoutBottomNavBarState());
   }
 
-  List <String>titeleappbar = [
-    'متبرع',
-    'محتاج تبرع',
-    'تبرع سريع',
-    'فرص التطوع',
-    'محفظه',
 
-  ];
 
   List<Widget>Scrreen = [
     DonorPage(),
     DonationNeedPage(),
     CartScreen(),
     VolunteerPage(),
-    WalletPage(),
+
   ];
 
 

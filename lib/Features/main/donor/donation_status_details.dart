@@ -6,12 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import 'package:linear_progress_bar/linear_progress_bar.dart';
-
-
-import '../../../core/sharde/app_assets.dart';
-import '../../../core/sharde/app_colors.dart';
 import '../../../core/sharde/widget/default_button.dart';
 import '../../../core/sharde/widget/navigation.dart';
 import '../payment/payment_screen.dart';
@@ -188,7 +183,7 @@ class DonationStatusDetails extends StatelessWidget {
                         Expanded(
                           flex: 3,
                           child: DefaultButton(text: 'مساعده الحاله',function: (){
-                            navigato(context, PaymentScreen(donation_id:BlocProvider.of<DonorViewCubit>(context).detailsModel!.donation!.id ,));
+                            // navigato(context, PaymentScreen(donation_id:BlocProvider.of<DonorViewCubit>(context).detailsModel!.donation!.id ,));
                             },),
                         ),
                         5.horizontalSpace,
@@ -225,7 +220,7 @@ class DonationStatusDetails extends StatelessWidget {
         
           fallback: (context)
               {
-        return Text('data');
+        return Container(height: MediaQuery.of(context).size.height,width:MediaQuery.of(context).size.width,child: Center(child: CircularProgressIndicator(color: Color(0xff529C9C),)));
         
               });
         

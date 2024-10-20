@@ -1,7 +1,7 @@
 class CartModel {
   int? status;
   String? message;
-  String? total;
+  dynamic? total;
   List<Carts>? carts;
 
   CartModel({this.status, this.message, this.total, this.carts});

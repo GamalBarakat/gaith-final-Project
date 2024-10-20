@@ -71,12 +71,7 @@ class ReportNeedPage extends StatelessWidget {
                         children: [
                           Image.asset(AppAssets.success),
 
-                          Text('${state..successAnotherModel2!.message}',  style: TextStyle(
-                            fontSize: 18.0,
-                            fontFamily: 'Ottoman',
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                          ),),
+
                           Text('تم تسجيل طلبك بنجاح',  style: TextStyle(
                             fontSize: 18.0,
                             fontFamily: 'Ottoman',

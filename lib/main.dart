@@ -4,6 +4,10 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'Features/Auth/Login/Screens/login_screen.dart';
+import 'Features/Auth/profile/Controller/profile_view_cubit.dart';
+import 'Features/main/Volunteer/cubit/volunteer_view_cubit.dart';
+import 'Features/main/donor/cubit/home_view_cubit.dart';
+import 'Features/main/home/feature/manager/home_cubite.dart';
 import 'Features/main/layoutScreen.dart';
 import 'Features/main/splash_screen.dart';
 import 'core/sharde/blocObserver.dart';
@@ -36,7 +40,23 @@ Future<void> main() async {
   {
     widget=SplashScreen();
   }
-  runApp( MyApp(StartWidget: widget,));
+  runApp( MultiBlocProvider(
+
+
+
+  providers: [
+      BlocProvider(
+      create: (context) => DonorViewCubit()..getHomeData()..getSharesData(),),
+  BlocProvider(
+  create: (context) => HomeViewCubit()..getProfile(),),
+  BlocProvider(
+  create: (context) => VolunteerViewCubit()..getVolunteerData(),),
+  BlocProvider(
+  create: (context) => DonorViewCubit()..getCartAll(),),
+  BlocProvider(
+  create: (context) => ProfileViewCubit()..getDataProfile(),)
+  ],
+  child: MyApp(StartWidget: widget,)));
 }
 
 class MyApp extends StatelessWidget {
@@ -64,7 +84,7 @@ class MyApp extends StatelessWidget {
 
       ],
       supportedLocales: const [
-        Locale('en', ''),
+
         Locale('ar', ''),
       ],
       title: 'Flutter Demo',

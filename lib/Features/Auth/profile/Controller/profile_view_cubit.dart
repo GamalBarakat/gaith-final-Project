@@ -45,7 +45,7 @@ class ProfileViewCubit extends Cubit<ProfileViewState>{
     emit(EditProfileViewStateLoading());
     FormData formData = FormData.fromMap({
 
-      'img': await uploadImageToAPI(image??null),
+      'img': (image==null)?null:await uploadImageToAPI(image),
       'name':name,
       'phone':phone,
       'email':email

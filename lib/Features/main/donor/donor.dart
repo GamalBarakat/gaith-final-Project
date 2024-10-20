@@ -84,7 +84,7 @@ class DonorPage extends StatelessWidget {
                         child:
                         Marquee(
 
-                          text:' مع ابليكشن غيث تبرعك سوف يصل الى كل محتاج تبرع الان ',
+                          text:'   مع ابليكشن غيث ساعد فى نشر الخير',
 
                           style: TextStyle(fontSize: 16.0.sp,fontFamily: 'Ottoman', color: Colors.white,fontWeight: FontWeight.w400),
 

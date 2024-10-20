@@ -26,15 +26,16 @@ class _CartScreenState extends State<CartScreen> {
     return Scaffold(
       backgroundColor: Color(0xffF4F6FE),
 
-      body: BlocProvider(
-          create: (context) => DonorViewCubit()..getCartAll(),
-          child: BlocConsumer<DonorViewCubit, DonorViewState>(
+      body: Builder(
+        builder: (context) {
+          BlocProvider.of<DonorViewCubit>(context).getCartAll();
+          return BlocConsumer<DonorViewCubit, DonorViewState>(
             listener: (context, state) {},
             builder: (context, state) {
               return Center(
                 child: BlocProvider.of<DonorViewCubit>(context).cartModel ==
                         null
-                    ? CircularProgressIndicator()
+                    ? Container(height: MediaQuery.of(context).size.height,width:MediaQuery.of(context).size.width,child: Center(child: CircularProgressIndicator(color: Color(0xff529C9C),)))
                     : Stack(
                   alignment: Alignment.bottomLeft,
                       children: [
@@ -68,7 +69,7 @@ class _CartScreenState extends State<CartScreen> {
                                       .deleteItemInCart(donationId: item.id!);
 
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(content: Text('تم الحذف')),
+                                    SnackBar(backgroundColor: Colors.red,content: Text('تم الحذف')),
                                   );
                                 },
                                 child: Padding(
@@ -91,8 +92,11 @@ class _CartScreenState extends State<CartScreen> {
 
                         InkWell(
                           onTap: (){
+                               if(int.parse(BlocProvider.of<DonorViewCubit>(context).cartModel!.total)>0)
+                                 {
+                                   navigato(context, PaymentScreen(price: BlocProvider.of<DonorViewCubit>(context).cartModel!.total,));
+                                 }
 
-                            navigato(context, PaymentScreen(price: BlocProvider.of<DonorViewCubit>(context).cartModel!.total,));
                           },
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -151,7 +155,9 @@ class _CartScreenState extends State<CartScreen> {
                     ),
               );
             },
-          )),
+          );
+        }
+      ),
     );
   }
 }

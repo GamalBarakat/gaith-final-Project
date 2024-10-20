@@ -83,14 +83,7 @@ class ProfileField extends StatelessWidget {
                  )
                ],
              ),
-              fallback: (context) => const Center(child: CircularProgressIndicator(
-                strokeWidth: 5.0,
-                backgroundColor: Colors.black,
-                color: Colors.blue,
-                strokeAlign: 7,
-                semanticsLabel: 'Linear progress indicator',
-
-              )));
+              fallback: (context) => Container(height: MediaQuery.of(context).size.height,width:MediaQuery.of(context).size.width,child: Center(child: CircularProgressIndicator(color: Color(0xff529C9C),))));
 
         },
         ),

@@ -189,7 +189,7 @@ class ZakatAlMaal extends StatelessWidget {
 40.verticalSpace,
               if(BlocProvider.of<ZakatViewCubit>(context).AmountZakat!=null&&BlocProvider.of<ZakatViewCubit>(context).AmountZakat>0)
                 DefaultButton(text:'تبرع بمقدار زكاتك ', function: (){
-                  navigato(context, PaymentScreen(donation_id:2 ,price:BlocProvider.of<ZakatViewCubit>(context).AmountZakat ,));
+                  // navigato(context, PaymentScreen(donation_id:2 ,price:BlocProvider.of<ZakatViewCubit>(context).AmountZakat ,));
                 }),
             ],
           )

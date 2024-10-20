@@ -56,6 +56,17 @@ class RegisterScreen extends StatelessWidget {
           navigato(context, LoginScreen());
         }
       }
+      if(state is RegisterViewStateError)
+      {
+        {
+
+          ScaffoldMessenger.of(context).showSnackBar(
+
+            SnackBar(backgroundColor: Colors.red,content: Center(child: Text('تاكد من كلمه المرور والبريد الكترونى'))),
+          );
+        }
+      }
+
     }, builder: (context, state) {
     return
 

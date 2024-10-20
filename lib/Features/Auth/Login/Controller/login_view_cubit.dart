@@ -21,11 +21,19 @@ class LoginViewCubit extends Cubit<LoginViewState> {
       'email': email,
       'password': password,
     }).then((value) {
+      if (value.statusCode == 200) {
+        print('Alllllllllllll');
+      }
+      else {
+        print(value.statusMessage);
+      }
+
       print(value.data);
       userLoginModel = UserLoginModel.fromJson(value.data);
 
       emit(LoginViewStateSuccess(userLoginModel!));
     }).catchError((error) {
+
       print(error.toString());
       emit(LoginViewStateError(error.toString()));
     });

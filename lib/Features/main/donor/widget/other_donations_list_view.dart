@@ -81,7 +81,7 @@ class OtherDonationsListView extends StatelessWidget {
               physics: const BouncingScrollPhysics(),
               itemBuilder:(context,index)=> InkWell(
                 onTap: (){
-                  navigato(context,  DonationDetails(index: index,));
+                  navigato(context,  DonationDetails(index: index,categoryID: BlocProvider.of<DonorViewCubit>(context).donorModel!.catigory![index].id,));
                 },
                 child: Column(
                   children: [
@@ -162,8 +162,9 @@ List<Map<String,dynamic>>DonationDetailslist=[
 
 class DonationDetails extends StatelessWidget {
 final  int index;
+dynamic categoryID;
 
-   DonationDetails({super.key,required this.index});
+   DonationDetails({super.key,required this.index,required this.categoryID});
    var nameController=TextEditingController();
    var phoneController=TextEditingController();
    var addressController=TextEditingController();
@@ -402,7 +403,7 @@ final  int index;
                                     context: context,
                                  address: addressController.text,
                                     name: nameController.text,
-                                    catigory_id: '14',
+                                    catigory_id:categoryID.toString(),
                                     des: descriptionController.text,
                                     phone: phoneController.text
 

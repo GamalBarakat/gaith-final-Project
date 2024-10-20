@@ -18,7 +18,9 @@ class BottomNavigationItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return 
+    
+    Padding(
       padding: const EdgeInsets.all(1),
       child: InkWell(
         onTap: () {

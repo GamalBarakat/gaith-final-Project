@@ -35,6 +35,7 @@ class LoginScreen extends StatelessWidget {
 
           listener: (context, state){
       if (state is LoginViewStateSuccess) {
+        print(state.userLoginModel!.status);
         if (state.userLoginModel!.status==false) {
           Fluttertoast.showToast(
               msg: '${state.userLoginModel!.message}',
@@ -62,6 +63,14 @@ class LoginScreen extends StatelessWidget {
           });
 
         }
+      }
+      if(state is LoginViewStateError)
+      {
+
+        ScaffoldMessenger.of(context).showSnackBar(
+
+          SnackBar(backgroundColor: Colors.red,content: Center(child: Text('تاكد من كلمه المرور والبريد الكترونى'))),
+        );
       }
     },
     builder: (context, state){

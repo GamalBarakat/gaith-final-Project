@@ -17,6 +17,7 @@ class CardCart extends StatelessWidget {
       Container(
 
         padding:EdgeInsets.all(5.0),
+        height: 100.h,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
           color: Colors.white,
@@ -25,7 +26,7 @@ class CardCart extends StatelessWidget {
         Row(
 
           children: [
-            Expanded(flex: 1,child: Image.network(image)),
+            Expanded(flex: 1,child: ClipRRect(borderRadius: BorderRadius.circular(5),child: Image.network(image,width: MediaQuery.of(context).size.width,fit: BoxFit.cover,height: MediaQuery.of(context).size.height,))),
            10.horizontalSpace,
             Expanded(
               flex: 2,

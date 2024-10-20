@@ -67,7 +67,7 @@ class ComponentSharesInHome extends StatelessWidget {
                     ),
                     Row(
                       children: [
-                        Icon(Icons.price_change,color: Colors.amber,),
+                        Icon(Icons.price_change,color: Color(0xff22AAE4),),
                         5.horizontalSpace,
                         Text(
 
